@@ -1,0 +1,66 @@
+/* ==========================================================================
+   TOKENS — todo o visual do jogo nasce daqui.
+   Mudou a paleta, a fonte ou a espessura das bordas? Altere só este arquivo.
+   Cores extraídas de "Referências Design".
+   ========================================================================== */
+
+/* Fontes locais (assets/fonts/) — o jogo funciona 100% offline.
+   Big Shoulders = títulos, botões e logo (condensada, letras abertas e fáceis de ler)
+   Tektur        = textos pequenos e legendas */
+@font-face { font-family: 'Big Shoulders'; src: url('../assets/fonts/BigShoulders-Bold.ttf') format('truetype'); font-weight: 100 900; font-display: block; }
+@font-face { font-family: 'Tektur'; src: url('../assets/fonts/Tektur-Regular.ttf') format('truetype'); font-weight: 400; font-display: block; }
+@font-face { font-family: 'Tektur'; src: url('../assets/fonts/Tektur-Medium.ttf') format('truetype'); font-weight: 500 900; font-display: block; }
+
+:root {
+  /* Resolução lógica do jogo (o container inteiro é escalado para caber na janela) */
+  --game-w: 960px;
+  --game-h: 540px;
+
+  /* Paleta v0.4 — mistura da identidade antiga (azul / verde-água / amarelo) com o branco e vermelho SENAI/SESI.
+     Painéis em azul-petróleo escuro, vermelho só nos acentos (anel externo, títulos, logo), branco nos anéis.
+     ring = anel branco · outline = contorno escuro de gibi · hot = vermelho dos acentos */
+  --c-bg:           #050f14;
+  --c-panel:        #082229;
+  --c-panel-2:      #11474f;
+  --c-panel-edge:   #00181c;
+  --c-ring:         #eef4f1;
+  --c-ring-dark:    #1f6f66;
+  --c-ring-deep:    #073e45;
+  --c-outline:      #06202a;
+  --c-hot:          #d6382d;
+  --c-hot-dark:     #8f1f1a;
+  --c-accent:       #e8833a;
+  --c-accent-dark:  #c25a00;
+  --c-yellow:       #f6c93b;
+  --c-yellow-dark:  #dba51a;
+  --c-blue:         #55b9e6;
+  --c-red:          #ff6b5e;
+  --c-hp:           #f6c93b;
+  --c-hp-bg:        #0e4a52;
+  --c-text:         #f4f7f2;
+  --c-text-dim:     #9cc4c4;
+  --c-ink:          #0b2a31;       /* texto sobre fundo amarelo/branco */
+
+  --c-p1: #5cc9ff;
+  --c-p2: #ff6b5e;
+
+  /* Correção de cor (Configurações → Correção de cor muda estes valores) */
+  --sat-bg:    1.05;     /* fundos dos menus */
+  --sat-stage: 1.04;     /* cenário da luta */
+
+  /* Tipografia */
+  --font-ui:      'Tektur', 'Trebuchet MS', Verdana, sans-serif;                 /* textos pequenos */
+  --font-display: 'Big Shoulders', Impact, 'Arial Narrow', sans-serif;           /* títulos e botões */
+  --font-logo:    var(--font-display);
+
+  /* Painéis pixelados (espessura dos anéis) */
+  --bw: 3px;   /* anel verde-água */
+  --ow: 2px;   /* anel laranja externo */
+
+  /* Camadas */
+  --z-screen:  1;
+  --z-hud:     10;
+  --z-overlay: 30;
+  --z-toast:   40;
+  --z-fx:      50;
+}

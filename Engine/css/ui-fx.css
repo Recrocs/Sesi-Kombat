@@ -1,0 +1,370 @@
+/* ==========================================================================
+   UI-FX — tipografia, acabamento dos painéis e ANIMAÇÕES DE INTERFACE (v0.2)
+
+   Regras:
+   · só a INTERFACE anima (menus, transições, HUD). Os lutadores NÃO têm animação ainda.
+   · animações de ENTRADA só rodam enquanto a tela é nova (classe .is-settled é posta
+     pelo gerenciador de telas depois de ~2,6s); as de "vida" (brilho do botão,
+     cursor pulsando, fundo) continuam depois.
+   · tudo respeita  body.no-anim  (Configurações → "Animações de menu") e prefers-reduced-motion.
+   · o estado final de cada elemento é o estado normal dele; a animação só "chega" nele.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. TIPOGRAFIA — Big Shoulders (títulos/botões) + Tektur (textos pequenos)
+   ========================================================================== */
+body { -webkit-font-smoothing: antialiased; font-weight: 500; letter-spacing: .4px; }
+
+.btn, .t-title, .tag, .btn__badge, .tape, .banner, .toast,
+.ctl__title, .ctl__keys b, .hud__name, .hud__timer-n, .hud__lbl,
+.screen-title, .char-card__name, .cs__side-label, .cs__side-name,
+.overlay__title, .versus__vs, .logo__l1, .logo__l2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.btn            { font-size: 22px; letter-spacing: 1.6px; }
+.btn__badge     { font-size: 14px; letter-spacing: 1px; padding: 2px 8px; }
+.tag            { font-size: 15px; letter-spacing: 1px; padding: 0 8px 1px; }
+.tape           { font-size: 16px; letter-spacing: 1.5px; }
+.toast, .toast.panel { font-size: 22px; letter-spacing: 1.5px; }
+
+.t-title        { letter-spacing: 2px; }
+.screen-title   { font-size: 38px; letter-spacing: 4px; }
+.back-btn       { font-size: 22px; }
+
+.title__btn     { font-size: 24px; }
+.title__btn--lg { font-size: 34px; letter-spacing: 3px; }
+.title__credits { font-size: 20px; letter-spacing: 3px; }
+.title__version { font-family: var(--font-ui); font-size: 11px; }
+
+.boot__text     { font-size: 22px; letter-spacing: 4px; }
+
+.cs__mode       { font-size: 24px; }
+.cs__prompt     { font-size: 19px; letter-spacing: 3px; }
+.char-card__name{ font-size: 18px; letter-spacing: 1px; height: 24px; }
+.cs__side-label { font-size: 28px; letter-spacing: 4px; }
+.cs__side-name  { font-size: 34px; letter-spacing: 2px; }
+.ctl__title     { font-size: 22px; letter-spacing: 3px; }
+.ctl__sub       { font-family: var(--font-ui); font-size: 10.5px; }
+.ctl__keys b    { font-size: 25px; }
+.ctl__keys span { font-family: var(--font-ui); font-size: 9.5px; }
+.cs__go         { font-size: 26px; letter-spacing: 3px; }
+.cs__foot       { font-family: var(--font-ui); font-size: 11px; }
+
+.ss__title      { font-size: 38px; }
+.ss__crumbs     { font-size: 16px; letter-spacing: 3px; top: 77px; }
+.ss__label      { font-size: 24px; }
+.ss__name       { font-size: 38px; letter-spacing: 4px; }
+.ss__sub        { font-size: 16px; letter-spacing: 2px; }
+.ss__item       { font-size: 22px; letter-spacing: 3px; }
+.ss__go         { font-size: 22px; letter-spacing: 2px; white-space: nowrap; padding: 0 30px 0 14px; gap: 10px; }
+.ss__go::before { display: none !important; }
+.ss__go kbd     { font-family: var(--font-display); font-size: 15px; }
+.ss__hint       { font-size: 15px; letter-spacing: 2px; }
+
+.versus__title  { font-size: 36px; }
+.versus__name   { font-size: 32px; letter-spacing: 3px; }
+.versus__vs     { font-size: 220px; letter-spacing: 0; top: 130px; }
+.versus__fight  { font-size: 48px; letter-spacing: 6px; top: 410px; }
+.versus__stage  { font-size: 32px; letter-spacing: 4px; top: 472px; height: 38px; }
+.versus__hint   { font-size: 13px; letter-spacing: 3px; top: 524px; }
+
+.hud__p, .hud__timer { height: 80px; }
+.hud__p { padding-top: 8px; }
+.hud__row { margin-top: 6px; }
+.hud__name      { font-size: 21px; letter-spacing: 2px; line-height: 1; }
+.hud__lbl       { font-size: 15px; }
+.hud__timer-n   { font-size: 50px; }
+.hud__timer-r   { font-family: var(--font-display); font-size: 16px; letter-spacing: 2px; }
+.fight__pause   { font-size: 22px; top: 108px; }
+.hud__ctl       { font-family: var(--font-ui); font-size: 11px; }
+.banner         { font-size: 118px; letter-spacing: 4px; }
+.banner--ko     { font-size: 160px; }
+.overlay__title { font-size: 46px; letter-spacing: 3px; }
+.overlay__sub   { font-family: var(--font-display); font-size: 20px; letter-spacing: 2px; }
+.overlay__menu .btn { height: 46px; font-size: 24px; }
+
+.set__list      { top: 80px; gap: 4px; }
+.set__row       { font-size: 19px; letter-spacing: 2px; height: 28px; }
+.set__val       { font-family: var(--font-display); font-size: 22px; }
+.set__foot      { font-size: 16px; letter-spacing: 2px; }
+.sug__box h3    { font-family: var(--font-display); font-size: 34px; letter-spacing: 3px; }
+.sug__box p     { font-size: 14px; }
+.sug__go        { font-size: 26px; }
+
+.logo__l1 { font-size: 138px; letter-spacing: 6px; -webkit-text-stroke: 9px #06202a; }
+.logo__l2 { font-size: 112px; letter-spacing: 6px; -webkit-text-stroke: 9px #06202a; margin-top: 6px; }
+
+/* efeito CRT mais leve: as linhas atrapalhavam a leitura das letras */
+#fx-scanlines {
+  background:
+    radial-gradient(ellipse at center, transparent 66%, rgba(0, 0, 0, .34) 100%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, .07) 0 1px, transparent 1px 4px);
+}
+
+/* ==========================================================================
+   2. ACABAMENTO DOS PAINÉIS
+   ========================================================================== */
+.panel { filter: drop-shadow(0 5px 0 rgba(0, 0, 0, .38)); }
+
+/* parafusinhos nos 4 cantos */
+.panel::before {
+  content: ''; position: absolute; inset: 5px; pointer-events: none; z-index: 1;
+  --stud: rgba(190, 245, 235, .55);
+  background:
+    linear-gradient(var(--stud), var(--stud)) 0 0 / 4px 4px no-repeat,
+    linear-gradient(var(--stud), var(--stud)) 100% 0 / 4px 4px no-repeat,
+    linear-gradient(var(--stud), var(--stud)) 0 100% / 4px 4px no-repeat,
+    linear-gradient(var(--stud), var(--stud)) 100% 100% / 4px 4px no-repeat;
+}
+.char-card::before, .panel--plain::before, .hud__p::before, .toast::before, .set__row::before { display: none; }
+
+/* botão selecionado: brilho que passa + setas laterais */
+.btn.is-selected, .is-selected.panel {
+  background-image:
+    linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, .7) 50%, transparent 62%),
+    linear-gradient(180deg, #ffe98a 0%, var(--c-yellow) 55%, var(--c-yellow-dark) 100%);
+  background-size: 280% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  background-position: 170% 0, 0 0;
+  animation: fx-shine 2.2s linear infinite;
+}
+.btn.is-selected::before, .btn.is-selected::after,
+.is-selected.panel::before, .is-selected.panel::after {
+  content: ''; position: absolute; inset: auto; top: 50%; width: 0; height: 0; margin-top: -7px;
+  border: 7px solid transparent; background: none; pointer-events: none; display: block;
+}
+.btn.is-selected::before, .is-selected.panel::before { left: 12px;  border-left: 10px solid var(--c-ink);  border-right: 0; animation: fx-nudge-r .6s ease-in-out infinite alternate; }
+.btn.is-selected::after,  .is-selected.panel::after  { right: 12px; border-right: 10px solid var(--c-ink); border-left: 0;  animation: fx-nudge-l .6s ease-in-out infinite alternate; }
+.set__row.is-selected::before, .set__row.is-selected::after { display: none; }   /* a linha já tem ◀ ▶ nos valores */
+
+@keyframes fx-shine   { from { background-position: 170% 0, 0 0; } to { background-position: -70% 0, 0 0; } }
+@keyframes fx-nudge-r { to { transform: translateX(5px); } }
+@keyframes fx-nudge-l { to { transform: translateX(-5px); } }
+
+/* ==========================================================================
+   3. ANIMAÇÕES — fundo, troca de tela, partículas
+   ========================================================================== */
+.menu-bg { animation: fx-drift 26s ease-in-out infinite alternate; }
+@keyframes fx-drift { from { transform: scale(1.02) translate(0, 0); } to { transform: scale(1.1) translate(-10px, -6px); } }
+
+/* troca de tela: fade + leve zoom */
+.screen { transition: opacity .22s ease, transform .22s ease; transform: scale(1.015); }
+.screen.is-active { transform: scale(1); }
+
+/* brasas flutuando (título e boot) */
+.embers { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.embers i {
+  position: absolute; bottom: -12px; left: var(--x); width: var(--s); height: var(--s);
+  background: var(--c-yellow); box-shadow: 0 0 6px 1px rgba(253, 215, 70, .7);
+  opacity: 0; animation: fx-ember var(--d) linear var(--w) infinite;
+}
+@keyframes fx-ember {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: .9; }
+  100% { transform: translate(var(--dx), -560px); opacity: 0; }
+}
+
+@keyframes fx-rise { from { opacity: 0; transform: translateY(26px) scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes fx-drop { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: none; } }
+@keyframes fx-in-l { from { opacity: 0; transform: translateX(-140px); } to { opacity: 1; transform: none; } }
+@keyframes fx-in-r { from { opacity: 0; transform: translateX(140px); }  to { opacity: 1; transform: none; } }
+@keyframes fx-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fx-pop  { from { opacity: 0; transform: scale(.55); } to { opacity: 1; transform: none; } }
+@keyframes fx-shake { 0%, 100% { transform: none; } 20% { transform: translate(-7px, 4px); } 40% { transform: translate(6px, -5px); } 60% { transform: translate(-4px, 3px); } 80% { transform: translate(3px, -2px); } }
+
+/* ==========================================================================
+   4. TÍTULO / BOOT
+   ========================================================================== */
+.screen.is-active .logo { animation: fx-float 4.5s ease-in-out .9s infinite alternate; }
+.screen.is-active:not(.is-settled) .logo__l1 { animation: fx-logo-l .7s cubic-bezier(.2, 1.3, .4, 1) both; }
+.screen.is-active:not(.is-settled) .logo__l2 { animation: fx-logo-r .7s cubic-bezier(.2, 1.3, .4, 1) .12s both; }
+.screen.is-active:not(.is-settled) .logo img { animation: fx-logo-img .7s cubic-bezier(.2, 1.3, .4, 1) both; }
+.screen.is-settled .logo__l1, .screen.is-settled .logo__l2 { animation: fx-glow 3s ease-in-out infinite alternate; }
+@keyframes fx-logo-l { from { opacity: 0; transform: skew(-8deg) translate(-90px, -30px) scale(1.25); } to { opacity: 1; transform: skew(-8deg); } }
+@keyframes fx-logo-r { from { opacity: 0; transform: skew(-8deg) translate(90px, 30px) scale(1.25); } to { opacity: 1; transform: skew(-8deg); } }
+@keyframes fx-logo-img { from { opacity: 0; transform: translateY(-40px) scale(1.2); } to { opacity: 1; transform: none; } }
+@keyframes fx-float  { to { transform: translateY(6px); } }
+@keyframes fx-glow   { to { filter: drop-shadow(0 0 14px rgba(253, 215, 70, .55)); } }
+
+.screen.is-active:not(.is-settled) .title__btn { animation: fx-rise .45s cubic-bezier(.2, 1.2, .4, 1) both; }
+.screen.is-active:not(.is-settled) .title__btn:nth-child(1) { animation-delay: .45s; }
+.screen.is-active:not(.is-settled) .title__btn:nth-child(2) { animation-delay: .55s; }
+.screen.is-active:not(.is-settled) .title__btn:nth-child(3) { animation-delay: .65s; }
+.screen.is-active:not(.is-settled) .title__btn:nth-child(4) { animation-delay: .75s; }
+.screen.is-active:not(.is-settled) .title__btn.is-selected { animation: fx-rise .45s cubic-bezier(.2, 1.2, .4, 1) both, fx-shine 2.2s linear infinite; }
+.screen.is-active:not(.is-settled) .title__btn.is-selected:nth-child(1) { animation-delay: .45s, 0s; }
+.screen.is-active:not(.is-settled) .title__btn.is-selected:nth-child(2) { animation-delay: .55s, 0s; }
+
+.screen.is-active:not(.is-settled) .title__fighter--l { animation: fx-in-l .7s cubic-bezier(.2, .9, .3, 1) .3s both; }
+.screen.is-active:not(.is-settled) .title__fighter--r { animation: fx-in-r .7s cubic-bezier(.2, .9, .3, 1) .3s both; }
+.screen.is-active:not(.is-settled) .title__credits { animation: fx-fade .8s ease 1s both; }
+
+.boot__bar .bar__fill { background-image: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, .7) 50%, transparent 70%), linear-gradient(180deg, #ffe97a, var(--c-hp) 45%, #e9b91f); background-size: 60px 100%, 100% 100%; background-repeat: repeat-x, no-repeat; animation: fx-bar-shine 1s linear infinite; }
+@keyframes fx-bar-shine { from { background-position: -60px 0, 0 0; } to { background-position: 60px 0, 0 0; } }
+
+/* ==========================================================================
+   5. SELEÇÃO DE PERSONAGEM
+   ========================================================================== */
+.cs__prompt { top: 128px; }
+.cs__ctl { height: 92px; top: 392px; }
+.ctl__keys b { font-size: 22px; }
+.cs__grid { left: 246px; top: 164px; width: 468px; gap: 12px; grid-template-columns: repeat(var(--cols, 4), 1fr); }
+.char-card { height: 92px; }
+
+.screen.is-active:not(.is-settled) .cs__title, .screen.is-active:not(.is-settled) .back-btn { animation: fx-drop .45s cubic-bezier(.2, 1.2, .4, 1) both; }
+.screen.is-active:not(.is-settled) .cs__mode--a { animation: fx-drop .45s cubic-bezier(.2, 1.2, .4, 1) .08s both; }
+.screen.is-active:not(.is-settled) .cs__mode--b { animation: fx-drop .45s cubic-bezier(.2, 1.2, .4, 1) .14s both; }
+.screen.is-active:not(.is-settled) .char-card { animation: fx-pop .38s cubic-bezier(.2, 1.4, .4, 1) calc(.18s + var(--i, 0) * 38ms) both; }
+.screen.is-active:not(.is-settled) .cs__side--l, .screen.is-active:not(.is-settled) .cs__ctl--l { animation: fx-in-l .55s cubic-bezier(.2, .9, .3, 1) .1s both; }
+.screen.is-active:not(.is-settled) .cs__side--r, .screen.is-active:not(.is-settled) .cs__ctl--r { animation: fx-in-r .55s cubic-bezier(.2, .9, .3, 1) .1s both; }
+.screen.is-active:not(.is-settled) .cs__go { animation: fx-rise .45s ease .5s both; }
+
+.screen.is-active .cs__go.is-ready { animation: fx-pulse .8s ease-in-out infinite alternate; }
+@keyframes fx-pulse { to { transform: scale(1.05); filter: drop-shadow(0 0 12px rgba(253, 215, 70, .8)); } }
+
+/* cursor: card cresce e pulsa */
+.screen.is-active .char-card.is-cursor { animation: fx-cursor .55s ease-in-out infinite alternate; }
+.screen.is-active:not(.is-settled) .char-card.is-cursor { animation: fx-pop .38s cubic-bezier(.2, 1.4, .4, 1) calc(.18s + var(--i, 0) * 38ms) both, fx-cursor .55s ease-in-out .8s infinite alternate; }
+@keyframes fx-cursor { from { transform: scale(1.03); filter: brightness(1); } to { transform: scale(1.07); filter: brightness(1.2) drop-shadow(0 0 10px rgba(253, 215, 70, .85)); } }
+
+/* troca do lutador mostrado ao lado */
+.cs__side--l .cs__side-sprite img { animation: fx-swap-l .3s cubic-bezier(.2, 1, .3, 1) both; }
+.cs__side--r .cs__side-sprite img { animation: fx-swap-r .3s cubic-bezier(.2, 1, .3, 1) both; }
+@keyframes fx-swap-l { from { opacity: 0; transform: scaleX(var(--flip, 1)) translateX(-40px) scale(.96); } to { opacity: 1; transform: scaleX(var(--flip, 1)); } }
+@keyframes fx-swap-r { from { opacity: 0; transform: scaleX(var(--flip, 1)) translateX(40px) scale(.96); }  to { opacity: 1; transform: scaleX(var(--flip, 1)); } }
+
+/* ==========================================================================
+   6. SELEÇÃO DE CENÁRIO
+   ========================================================================== */
+.screen.is-active:not(.is-settled) .ss__title, .screen.is-active:not(.is-settled) .back-btn { animation: fx-drop .45s cubic-bezier(.2, 1.2, .4, 1) both; }
+.screen.is-active:not(.is-settled) .ss__preview { animation: fx-in-l .55s cubic-bezier(.2, .9, .3, 1) .08s both; }
+.screen.is-active:not(.is-settled) .ss__label   { animation: fx-drop .45s ease .3s both; }
+.screen.is-active:not(.is-settled) .ss__name    { animation: fx-rise .45s ease .3s both; }
+.screen.is-active:not(.is-settled) .ss__item    { animation: fx-in-r .45s cubic-bezier(.2, .9, .3, 1) calc(.12s + var(--i, 0) * 55ms) both; }
+.screen.is-active:not(.is-settled) .ss__item.is-selected { animation: fx-in-r .45s cubic-bezier(.2, .9, .3, 1) calc(.12s + var(--i, 0) * 55ms) both, fx-shine 2.2s linear infinite; }
+.screen.is-active:not(.is-settled) .ss__go      { animation: fx-rise .45s ease .6s both; }
+.ss__shot img { animation: fx-shot .45s cubic-bezier(.2, 1, .3, 1) both; }
+@keyframes fx-shot { from { opacity: 0; transform: scale(1.12); filter: brightness(2); } }
+.ss__shot::after {                               /* barra de luz varrendo a prévia */
+  content: ''; position: absolute; top: 0; bottom: 0; width: 22%; left: -30%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .18), transparent);
+  animation: fx-sweep 4s ease-in-out 1s infinite;
+}
+@keyframes fx-sweep { 0% { left: -30%; } 45%, 100% { left: 130%; } }
+
+/* ==========================================================================
+   7. VERSUS
+   ========================================================================== */
+.screen.is-active:not(.is-settled) .versus__half--l { animation: fx-slide-l .55s cubic-bezier(.2, .9, .3, 1) both; }
+.screen.is-active:not(.is-settled) .versus__half--r { animation: fx-slide-r .55s cubic-bezier(.2, .9, .3, 1) both; }
+@keyframes fx-slide-l { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes fx-slide-r { from { transform: translateX(100%); }  to { transform: none; } }
+.screen.is-active .versus__half::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, .22), transparent 60%);
+  animation: fx-rays 1.6s ease-in-out infinite alternate;
+}
+@keyframes fx-rays { from { opacity: .15; } to { opacity: 1; } }
+
+.screen.is-active:not(.is-settled) .versus__title { animation: fx-drop .45s cubic-bezier(.2, 1.2, .4, 1) .45s both; }
+.screen.is-active:not(.is-settled) .versus .back-btn, .screen--versus.is-active:not(.is-settled) .back-btn { animation: fx-drop .45s ease .5s both; }
+.screen.is-active:not(.is-settled) .versus__card--l { animation: fx-in-l .6s cubic-bezier(.2, .9, .3, 1) .35s both; }
+.screen.is-active:not(.is-settled) .versus__card--r { animation: fx-in-r .6s cubic-bezier(.2, .9, .3, 1) .35s both; }
+.screen.is-active:not(.is-settled) .versus__name--l { animation: fx-rise .45s ease .75s both; }
+.screen.is-active:not(.is-settled) .versus__name--r { animation: fx-rise .45s ease .8s both; }
+.screen.is-active:not(.is-settled) .versus__stage   { animation: fx-rise .45s ease 1.2s both; }
+.screen.is-active:not(.is-settled) .versus__hint    { animation: fx-fade .4s ease 1.8s both; }
+.screen.is-active .versus__vs { animation: fx-slam .5s cubic-bezier(.2, 1.5, .4, 1) .9s both, fx-vs-pulse 1.2s ease-in-out 1.5s infinite alternate; }
+@keyframes fx-slam { 0% { opacity: 0; transform: rotate(-6deg) skew(-6deg) scale(4); } 100% { opacity: 1; transform: rotate(-6deg) skew(-6deg) scale(1); } }
+@keyframes fx-vs-pulse { to { transform: rotate(-6deg) skew(-6deg) scale(1.07); filter: drop-shadow(0 0 22px rgba(253, 215, 70, .75)); } }
+.screen--versus.is-active { animation: fx-shake .35s ease 1.35s; }
+.screen.is-active .versus__fight { animation: fx-fade .2s ease 1.6s both, fx-blink-scale .7s ease-in-out 1.8s infinite alternate; }
+@keyframes fx-blink-scale { to { transform: scale(1.12); color: var(--c-yellow); } }
+
+/* ==========================================================================
+   8. LUTA (HUD, banners, pausa) — só a interface
+   ========================================================================== */
+.screen.is-active:not(.is-settled) .hud__p--l { animation: fx-in-l .5s cubic-bezier(.2, .9, .3, 1) both; }
+.screen.is-active:not(.is-settled) .hud__p--r { animation: fx-in-r .5s cubic-bezier(.2, .9, .3, 1) both; }
+.screen.is-active:not(.is-settled) .hud__timer { animation: fx-drop .5s cubic-bezier(.2, 1.2, .4, 1) .15s both; }
+.hud__timer-n.is-low { animation: fx-tick 1s ease-in-out infinite; }
+@keyframes fx-tick { 50% { transform: scale(1.22); } }
+.hud__p.is-low > .bar > .bar__fill { animation: fx-low .35s steps(2, jump-none) infinite; }
+@keyframes fx-low { 50% { background: #ff6b5e; } }
+.banner.is-show { animation: fx-banner .3s cubic-bezier(.2, 1.5, .4, 1) forwards; }
+@keyframes fx-banner { from { opacity: 0; transform: scale(2.2); } to { opacity: 1; transform: scale(1); } }
+.banner--ko.is-show { animation: fx-banner .3s cubic-bezier(.2, 1.5, .4, 1) forwards, fx-shake .4s ease .3s; }
+.overlay { animation: fx-fade .2s ease both; }
+.overlay__box { animation: fx-rise .3s cubic-bezier(.2, 1.3, .4, 1) both; }
+
+/* ==========================================================================
+   9. CONFIGURAÇÕES / SUGESTÕES
+   ========================================================================== */
+.screen.is-active:not(.is-settled) .set__title, .screen.is-active:not(.is-settled) .sug__title, .screen.is-active:not(.is-settled) .back-btn { animation: fx-drop .45s cubic-bezier(.2, 1.2, .4, 1) both; }
+.screen.is-active:not(.is-settled) .set__row { animation: fx-in-l .4s cubic-bezier(.2, .9, .3, 1) calc(.1s + var(--i, 0) * 40ms) both; }
+.screen.is-active:not(.is-settled) .set__row.is-selected { animation: fx-in-l .4s cubic-bezier(.2, .9, .3, 1) calc(.1s + var(--i, 0) * 40ms) both, fx-shine 2.2s linear infinite; }
+.screen.is-active:not(.is-settled) .sug__box { animation: fx-rise .5s cubic-bezier(.2, 1.2, .4, 1) .15s both; }
+.screen.is-active:not(.is-settled) .sug__go  { animation: fx-rise .45s ease .4s both; }
+
+/* ==========================================================================
+   10. DESLIGAR ANIMAÇÕES
+   ========================================================================== */
+body.no-anim *, body.no-anim *::before, body.no-anim *::after {
+  animation: none !important;
+  transition: none !important;
+}
+body.no-anim .screen { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ==========================================================================
+   11. TEMA SENAI / SESI (v0.4) — azul-petróleo + vermelho/branco, cores calmas
+   ========================================================================== */
+/* contorno de gibi nas letras (o selecionado volta ao normal: texto escuro sobre amarelo) */
+.btn, .screen-title, .cs__side-label, .cs__side-name, .hud__name, .hud__timer-n,
+.char-card__name, .tag, .ctl__title, .overlay__title { -webkit-text-stroke: 3px var(--c-outline); paint-order: stroke fill; }
+.t-title { -webkit-text-stroke: 2.5px var(--c-outline); paint-order: stroke fill; }
+.btn.is-selected, .is-selected.panel, .char-card.is-cursor .char-card__name, .tag, .btn__badge, .ss__go kbd, .tape { -webkit-text-stroke: 0; }
+.btn.is-selected { text-shadow: none; }
+
+/* títulos de tela em vermelho (acento da marca) */
+.screen-title.panel { background: linear-gradient(180deg, #e0463a 0%, var(--c-hot) 50%, var(--c-hot-dark) 130%); --ring-outer: var(--c-outline); }
+
+/* logo: SENAI branco com extrusão vermelha · KOMBAT vermelho com extrusão branca/amarela */
+.logo__l1 { color: #fff; text-shadow: 0 5px 0 var(--c-hot), 0 10px 0 var(--c-hot-dark), 0 16px 0 rgba(0, 0, 0, .45); }
+.logo__l2 { color: #e8433a; text-shadow: 0 5px 0 #fff, 0 10px 0 var(--c-yellow), 0 16px 0 rgba(0, 0, 0, .45); }
+
+/* fundo dos menus: azul de um lado, vermelho do outro (a "brincadeira" azul x vermelho) */
+.menu-bg { filter: brightness(.6) saturate(var(--sat-bg)) blur(1px); }
+.menu-bg--title { filter: brightness(.72) saturate(var(--sat-bg)) blur(.5px); }
+.menu-bg::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(rgba(255, 255, 255, .10) 1.3px, transparent 1.7px) 0 0 / 9px 9px,
+    linear-gradient(115deg, rgba(10, 80, 130, .45) 0%, rgba(4, 20, 30, .30) 50%, rgba(160, 30, 30, .42) 100%);
+}
+.fight__canvas { filter: saturate(var(--sat-stage)) contrast(1.02); }
+
+/* raios girando atrás do logo */
+.title__rays {
+  position: absolute; left: 50%; top: 150px; width: 1100px; height: 1100px; margin: -550px 0 0 -550px; pointer-events: none;
+  background: repeating-conic-gradient(rgba(255, 255, 255, .10) 0 5deg, transparent 5deg 15deg);
+  -webkit-mask-image: radial-gradient(circle, #000 8%, transparent 62%); mask-image: radial-gradient(circle, #000 8%, transparent 62%);
+  animation: fx-spin 60s linear infinite;
+}
+@keyframes fx-spin { to { transform: rotate(360deg); } }
+
+.embers i { background: #fff3c0; box-shadow: 0 0 7px 2px rgba(240, 120, 60, .6); }
+.bar__fill { background: linear-gradient(180deg, #ffeaa0 0%, var(--c-hp) 45%, var(--c-yellow-dark) 100%); }
+.hud__rounds i { border-color: #fff; }
+.char-card.is-cursor { --ring: var(--c-yellow); --ring-outer: #fff; }
+.versus__fight { color: #fff; }
+.hud__timer-n { color: var(--c-yellow); }
+.result__title.t-lose { color: #ff8a7e; }
+
+/* correção de cor escolhida nas Configurações */
+body.grade-soft  { --sat-bg: .82; --sat-stage: .9; }
+body.grade-vivid { --sat-bg: 1.45; --sat-stage: 1.22; }
