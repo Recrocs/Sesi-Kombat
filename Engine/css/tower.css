@@ -1,0 +1,129 @@
+/* ==========================================================================
+   TORRE — telas do modo Circuito (menu de modos e escada)
+   ========================================================================== */
+
+/* ---- Menu do circuito -------------------------------------------------------- */
+.tm__title { left: 300px; top: 14px; width: 360px; height: 56px; }
+.tm__sub   { left: 0; right: 0; top: 84px; text-align: center; font-size: 22px; letter-spacing: 4px; color: var(--c-yellow); }
+.tm__grid  { left: 150px; top: 138px; width: 660px; display: grid; grid-template-columns: repeat(var(--cols, 2), 1fr); gap: 40px; }
+.tm__card  { height: 330px; padding: 18px 20px; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
+.tm__icon  { font-family: var(--font-display); font-size: 62px; line-height: 1; color: var(--c-yellow); -webkit-text-stroke: 4px var(--c-outline); paint-order: stroke fill; text-shadow: 0 5px 0 var(--c-hot); margin-bottom: 6px; }
+.tm__name  { font-family: var(--font-display); font-size: 34px; line-height: 1; letter-spacing: 3px; -webkit-text-stroke: 3px var(--c-outline); paint-order: stroke fill; }
+.tm__tag   { font-family: var(--font-display); font-size: 19px; letter-spacing: 2px; color: var(--c-yellow); margin: 6px 0 10px; }
+.tm__desc  { font-size: 12.5px; line-height: 1.5; font-weight: 500; letter-spacing: .2px; color: var(--c-text); }
+.tm__card.is-cursor { --ring: var(--c-yellow); --ring-outer: #fff; z-index: 2; }
+.screen.is-active .tm__card.is-cursor { animation: fx-cursor .55s ease-in-out infinite alternate; }
+.tm__card--locked { cursor: not-allowed; filter: saturate(.3) brightness(.7) drop-shadow(0 5px 0 rgba(0, 0, 0, .38)); position: relative; }
+.tm__card--locked .tm__icon { color: var(--c-ring-deep); text-shadow: none; }
+.tm__hint  { left: 0; right: 0; bottom: 22px; text-align: center; font-size: 17px; letter-spacing: 3px; }
+.screen.is-active:not(.is-settled) .tm__card { animation: fx-pop .45s cubic-bezier(.2, 1.4, .4, 1) calc(.15s + var(--i, 0) * 90ms) both; }
+.screen.is-active:not(.is-settled) .tm__card.is-cursor { animation: fx-pop .45s cubic-bezier(.2, 1.4, .4, 1) calc(.15s + var(--i, 0) * 90ms) both, fx-cursor .55s ease-in-out .9s infinite alternate; }
+.screen.is-active:not(.is-settled) .tm__title, .screen.is-active:not(.is-settled) .tw__title { animation: fx-drop .45s cubic-bezier(.2, 1.2, .4, 1) both; }
+
+/* ---- Escada ------------------------------------------------------------------- */
+.tw__title { left: 300px; top: 14px; width: 360px; height: 56px; font-size: 34px; }
+.tw__sub   { left: 0; right: 0; top: 74px; text-align: center; font-size: 22px; letter-spacing: 4px; color: var(--c-yellow); }
+
+.tw__me  { left: 20px; top: 118px; width: 216px; height: 338px; text-align: center; }
+.tw__me .cs__side-sprite { height: 210px; top: 48px; }
+.tw__opp { right: 20px; top: 118px; width: 216px; height: 214px; text-align: center; }
+.tw__opp .cs__side-sprite { height: 118px; top: 44px; }
+.tw__opp .cs__side-name, .tw__me .cs__side-name { font-size: 30px; bottom: 10px; }
+.tw__mod { right: 20px; top: 344px; width: 216px; height: 112px; padding: 10px 12px; text-align: center; }
+.tw__mod-n { font-family: var(--font-display); font-size: 22px; letter-spacing: 1.5px; line-height: 1.05; color: var(--c-yellow); -webkit-text-stroke: 2.5px var(--c-outline); paint-order: stroke fill; }
+.tw__mod-n--none { color: #fff; }
+.tw__mod-d { font-size: 11.5px; line-height: 1.45; margin-top: 6px; font-weight: 500; }
+.tw__mod.has-mod { animation: fx-warn 1s ease-in-out infinite alternate; }
+@keyframes fx-warn { to { filter: drop-shadow(0 0 10px rgba(255, 210, 31, .9)); } }
+
+/* ---- O pagode ------------------------------------------------------------------ */
+.tw__bg { position: absolute; inset: 0; overflow: hidden; background: linear-gradient(180deg, #02070a 0%, #07141a 55%, #0d1f24 100%); }
+.tw__far { position: absolute; bottom: 0; background:
+    radial-gradient(rgba(255, 190, 90, .55) 1px, transparent 1.6px) 0 0 / 14px 22px,
+    linear-gradient(180deg, #0a1519, #060d10); box-shadow: inset 0 0 40px rgba(0, 0, 0, .6); }
+.tw__far--a { left: 232px; width: 60px; height: 400px; opacity: .8; }
+.tw__far--b { left: 668px; width: 70px; height: 330px; opacity: .7; }
+.tw__far--c { left: 150px; width: 50px; height: 250px; opacity: .45; }
+.tw__fog { position: absolute; left: -20%; width: 140%; height: 220px; pointer-events: none; filter: blur(6px);
+  background: radial-gradient(ellipse at 50% 50%, rgba(150, 190, 200, .22), transparent 65%); animation: fx-fog 22s ease-in-out infinite alternate; }
+.tw__fog--1 { bottom: 20px; }
+.tw__fog--2 { bottom: 170px; animation-duration: 30s; animation-direction: alternate-reverse; opacity: .7; }
+@keyframes fx-fog { from { transform: translateX(-60px); } to { transform: translateX(60px); } }
+
+.tw__view { left: 300px; top: 98px; width: 360px; height: 372px; overflow: hidden; transition: filter .3s;
+  -webkit-mask-image: linear-gradient(transparent 0, #000 9%, #000 90%, transparent 100%); mask-image: linear-gradient(transparent 0, #000 9%, #000 90%, transparent 100%); }
+.tw__view.is-dim { filter: brightness(.4) saturate(.6); }
+.tw__tower { position: absolute; left: 0; top: 0; width: 360px; will-change: transform; }
+.tw__tower.is-climb { transition: transform 1.5s cubic-bezier(.45, 0, .2, 1); }
+.tw__roof { display: block; width: 360px; height: 112px; }
+
+.tw__floor { position: relative; height: 96px; margin: 0 auto; width: 304px; background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, .22) 0 1px, transparent 1px 12px),
+    linear-gradient(90deg, #0f2423 0%, #1b3a38 18%, #1b3a38 82%, #0f2423 100%); box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .35); }
+/* colunas laterais */
+.tw__floor::before, .tw__floor::after { content: ''; position: absolute; top: 0; bottom: 0; width: 22px; background: linear-gradient(90deg, #335a53, #1f3f3b 60%, #14302d); box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .35); }
+.tw__floor::before { left: -22px; } .tw__floor::after { right: -22px; transform: scaleX(-1); }
+/* varanda de ossos/contas */
+.tw__balcony { position: absolute; left: -38px; right: -38px; top: -1px; height: 22px; z-index: 2;
+  background: radial-gradient(circle at 50% 50%, #f7efd2 0 3.5px, #8d845f 4.5px, transparent 5.5px) 0 0 / 15px 22px repeat-x,
+              linear-gradient(180deg, #d9cfa5 0%, #9a916b 55%, #5e5840 100%);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .5), 0 0 0 2px #06202a; }
+.tw__balcony::before, .tw__balcony::after { content: ''; position: absolute; top: -9px; width: 20px; height: 20px; border-radius: 50% 50% 0 50%; background: #d9cfa5; box-shadow: 0 0 0 2px #06202a; }
+.tw__balcony::before { left: -8px; transform: rotate(-45deg); } .tw__balcony::after { right: -8px; transform: rotate(45deg) scaleX(-1); }
+
+.tw__alcove { position: absolute; left: 44px; right: 44px; top: 26px; height: 50px; background: radial-gradient(ellipse at 50% 60%, var(--theme, #2a5a6a) 0%, #02080a 78%); box-shadow: inset 0 0 0 3px #06202a, 0 0 0 3px #7e764f, 0 0 0 5px #06202a; overflow: hidden; }
+.tw__alcove img { position: absolute; left: 50%; top: -5px; width: 106px; height: 106px; margin-left: -53px; display: block; }
+.tw__alcove::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(0, 0, 0, .65) 100%); pointer-events: none; }
+.tw__plate { position: absolute; left: 70px; right: 70px; bottom: 3px; height: 16px; text-align: center; font-family: var(--font-display); font-size: 14px; line-height: 16px; letter-spacing: 2px; text-transform: uppercase; color: #06202a; background: linear-gradient(180deg, #e9dfb4, #b3a874); box-shadow: 0 0 0 2px #06202a; white-space: nowrap; overflow: hidden; z-index: 3; }
+
+/* tochas */
+.tw__torch { position: absolute; top: 42px; width: 10px; height: 18px; border-radius: 50% 50% 40% 40%; background: #2a3a3a; z-index: 3; }
+.tw__torch--l { left: 14px; } .tw__torch--r { right: 14px; }
+
+/* estados dos andares */
+.tw__floor.is-future .tw__alcove img { filter: brightness(.28) saturate(.3); }
+.tw__floor.is-future .tw__plate { filter: brightness(.55); }
+.tw__floor.is-done .tw__alcove img { filter: grayscale(1) brightness(.55); }
+.tw__floor.is-done .tw__torch, .tw__floor.is-cur .tw__torch { background: radial-gradient(circle at 50% 70%, #fff6b0 0, #ffb347 40%, #e8501a 75%, transparent 76%); box-shadow: 0 0 14px 5px rgba(255, 150, 50, .55); animation: fx-flame .5s steps(2, jump-none) infinite alternate; }
+@keyframes fx-flame { to { transform: scale(1.12, .92); box-shadow: 0 0 18px 7px rgba(255, 130, 40, .5); } }
+.tw__x { position: absolute; inset: 0; z-index: 2; background:
+    linear-gradient(to top right, transparent calc(50% - 2px), var(--c-hot) calc(50% - 2px), var(--c-hot) calc(50% + 2px), transparent calc(50% + 2px)),
+    linear-gradient(to bottom right, transparent calc(50% - 2px), var(--c-hot) calc(50% - 2px), var(--c-hot) calc(50% + 2px), transparent calc(50% + 2px)); opacity: .85; }
+.tw__stamp { position: absolute; left: 50%; top: 50%; z-index: 3; transform: translate(-50%, -50%) rotate(-8deg); padding: 0 8px; font-family: var(--font-display); font-size: 17px; letter-spacing: 3px; color: #fff; background: var(--c-hot); box-shadow: 0 0 0 2px #06202a; }
+.tw__floor.is-cur .tw__alcove { box-shadow: inset 0 0 0 3px #06202a, 0 0 0 3px var(--c-yellow), 0 0 0 5px #06202a, 0 0 22px 6px rgba(246, 201, 59, .75); animation: fx-warn 1s ease-in-out infinite alternate; }
+.tw__floor.is-cur .tw__plate { background: linear-gradient(180deg, #fff3b0, var(--c-yellow)); }
+.tw__spot { position: absolute; left: 0; top: 0; bottom: 0; width: 30%; z-index: 2; background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .28), transparent); animation: fx-sweep2 2.6s ease-in-out infinite; }
+@keyframes fx-sweep2 { 0% { left: -40%; } 60%, 100% { left: 120%; } }
+.tw__floor.is-boss .tw__alcove { box-shadow: inset 0 0 0 3px #06202a, 0 0 0 3px var(--c-hot), 0 0 0 5px #06202a, 0 0 18px 4px rgba(214, 56, 45, .7); }
+.tw__floor.is-boss.is-cur .tw__alcove { box-shadow: inset 0 0 0 3px #06202a, 0 0 0 3px var(--c-hot), 0 0 0 5px #06202a, 0 0 26px 8px rgba(214, 56, 45, .9); }
+.tw__floor.is-boss .tw__plate { background: linear-gradient(180deg, #ff9a8e, var(--c-hot)); color: #fff; }
+
+/* base com porta em arco */
+.tw__base { position: relative; height: 84px; width: 360px; background: linear-gradient(180deg, #1f3f3b, #0c1c1b); box-shadow: inset 0 3px 0 #7e764f; }
+.tw__base i { position: absolute; left: 50%; bottom: 0; width: 70px; height: 62px; margin-left: -35px; border-radius: 35px 35px 0 0; background: radial-gradient(ellipse at 50% 100%, #ffb347, #8a2e0f 60%, #1a0804); box-shadow: 0 0 0 3px #06202a, 0 0 18px rgba(255, 140, 50, .5); }
+
+/* serpente dourada */
+.tw__snake-wrap { position: absolute; left: -40px; width: 440px; height: 40px; z-index: 5; pointer-events: none; animation: fx-snake 3.2s ease-in-out infinite alternate; }
+.tw__snake { display: block; width: 440px; height: 40px; filter: drop-shadow(0 3px 0 rgba(0, 0, 0, .5)); }
+@keyframes fx-snake { from { transform: translateX(-10px) scaleY(1); } to { transform: translateX(10px) scaleY(.82); } }
+
+.tw__go { left: 320px; top: 484px; width: 320px; height: 44px; font-size: 24px; letter-spacing: 3px; gap: 12px; white-space: nowrap; }
+.tw__go kbd { font-family: var(--font-display); font-size: 15px; padding: 3px 7px; background: var(--c-hot); color: #fff; box-shadow: 0 2px 0 #7a0b10; text-shadow: none; }
+.tw__go::before { display: none !important; }
+
+.tw__win { left: 262px; top: 150px; width: 436px; height: 236px; z-index: 6; text-align: center; padding-top: 24px; }
+.tw__win-t { font-family: var(--font-display); font-size: 58px; line-height: 1; letter-spacing: 3px; color: var(--c-yellow); -webkit-text-stroke: 5px var(--c-outline); paint-order: stroke fill; text-shadow: 0 5px 0 var(--c-hot); }
+.tw__win-s { font-family: var(--font-display); font-size: 22px; letter-spacing: 2px; margin-top: 12px; -webkit-text-stroke: 2.5px var(--c-outline); paint-order: stroke fill; }
+.screen.is-active .tw__win { animation: fx-slam2 .55s cubic-bezier(.2, 1.5, .4, 1) .2s both; }
+@keyframes fx-slam2 { from { opacity: 0; transform: scale(2.4); } to { opacity: 1; transform: none; } }
+
+/* ---- HUD / versus em modo Torre ------------------------------------------------- */
+.fight__tower { left: 50%; top: 98px; transform: translateX(-50%); z-index: 11; padding: 2px 16px 3px; background: var(--c-outline); box-shadow: 0 0 0 2px #fff; font-family: var(--font-display); font-size: 20px; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; pointer-events: none; }
+.fight__tower b { color: var(--c-yellow); font-weight: 700; }
+.versus__rule { left: 0; width: 960px; top: 84px; text-align: center; pointer-events: none; }
+.versus__rule span { display: inline-block; padding: 2px 18px 4px; background: var(--c-yellow); color: var(--c-ink); font-family: var(--font-display); font-size: 26px; letter-spacing: 3px; box-shadow: 0 0 0 3px var(--c-outline), 0 6px 0 3px rgba(0, 0, 0, .4); transform: rotate(-2deg); }
+.screen.is-active .versus__rule span { animation: fx-slam2 .4s cubic-bezier(.2, 1.5, .4, 1) 1.1s both; }
+
+.tm__chips { margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.tm__chips span { padding: 1px 9px 2px; font-family: var(--font-display); font-size: 15px; letter-spacing: 1.5px; background: var(--c-yellow); color: var(--c-ink); box-shadow: 0 0 0 2px var(--c-outline); }
+.tm__card .tm__desc { max-width: 270px; }

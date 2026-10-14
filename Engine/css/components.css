@@ -1,0 +1,181 @@
+/* ==========================================================================
+   COMPONENTES — blocos reutilizados em todas as telas
+   ========================================================================== */
+
+/* ---- Painel pixelado -------------------------------------------------------
+   Moldura de 2 anéis (verde-água + laranja) com cantos "mordidos", feita só com
+   box-shadow (sem imagens). Para trocar por arte própria no futuro, basta
+   substituir o box-shadow por um border-image.                                */
+.panel {
+  --ring:       var(--c-ring);
+  --ring-outer: var(--c-hot);
+  position: relative;
+  background: linear-gradient(180deg, var(--c-panel-2) 0%, var(--c-panel) 58%);
+  color: var(--c-text);
+  box-shadow:
+    inset 0 0 0 2px rgba(0, 0, 0, .38),
+    inset 0 4px 0 2px rgba(150, 240, 230, .10),
+    /* anel interno (verde-água) */
+    0 calc(var(--bw) * -1) 0 0 var(--ring),
+    0 var(--bw) 0 0 var(--ring),
+    calc(var(--bw) * -1) 0 0 0 var(--ring),
+    var(--bw) 0 0 0 var(--ring),
+    /* anel externo (laranja) */
+    0 calc((var(--bw) + var(--ow)) * -1) 0 0 var(--ring-outer),
+    0 calc(var(--bw) + var(--ow)) 0 0 var(--ring-outer),
+    calc((var(--bw) + var(--ow)) * -1) 0 0 0 var(--ring-outer),
+    calc(var(--bw) + var(--ow)) 0 0 0 var(--ring-outer);
+}
+.panel.abs { position: absolute; }          /* .panel define relative; isto garante o posicionamento absoluto */
+.panel--plain { background: var(--c-panel); }
+.panel--glass { background: rgba(5, 25, 32, .86); }
+
+/* ---- Botão ----------------------------------------------------------------- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, .65);
+  transition: transform .06s ease;
+}
+.btn:active { transform: translateY(2px); }
+
+/* Estado selecionado (cursor do menu) — amarelo, como nas referências */
+.btn.is-selected,
+.is-selected.panel {
+  --ring: var(--c-ring-dark);
+  background: linear-gradient(180deg, #ffe98a 0%, var(--c-yellow) 55%, var(--c-yellow-dark) 100%);
+  color: var(--c-ink);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .45);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, .5),
+    inset 0 -4px 0 0 rgba(160, 100, 0, .25),
+    0 calc(var(--bw) * -1) 0 0 var(--ring),
+    0 var(--bw) 0 0 var(--ring),
+    calc(var(--bw) * -1) 0 0 0 var(--ring),
+    var(--bw) 0 0 0 var(--ring),
+    0 calc((var(--bw) + var(--ow)) * -1) 0 0 var(--ring-outer),
+    0 calc(var(--bw) + var(--ow)) 0 0 var(--ring-outer),
+    calc((var(--bw) + var(--ow)) * -1) 0 0 0 var(--ring-outer),
+    calc(var(--bw) + var(--ow)) 0 0 0 var(--ring-outer);
+}
+
+.btn.is-disabled { filter: saturate(.45) brightness(.78); }
+.btn__badge {
+  position: absolute;
+  right: -10px; top: -9px;
+  padding: 2px 7px;
+  font-size: 10px;
+  background: var(--c-yellow);
+  color: var(--c-ink);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .5);
+  transform: rotate(4deg);
+}
+
+/* ---- Texto utilitário ------------------------------------------------------- */
+.t-title {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-shadow: 0 3px 0 rgba(0, 0, 0, .6);
+}
+.t-dim   { color: var(--c-text-dim); }
+.t-yellow{ color: var(--c-yellow); }
+.t-p1    { color: var(--c-p1); }
+.t-p2    { color: var(--c-p2); }
+
+/* ---- Tecla (legenda de controles) ------------------------------------------- */
+.ctl { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 6px 8px; }
+.ctl__title { font-size: 15px; font-weight: 700; letter-spacing: 2px; }
+.ctl__title--p1 { color: var(--c-p1); }
+.ctl__title--p2 { color: var(--c-p2); }
+.ctl__sub   { font-size: 10.5px; letter-spacing: 1px; margin: 2px 0 6px; }
+.ctl__keys  { display: flex; gap: 14px; justify-content: center; }
+.ctl__keys > div { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.ctl__keys b { font-size: 17px; font-weight: 700; }
+.ctl--p1 .ctl__keys b { color: var(--c-p1); }
+.ctl--p2 .ctl__keys b { color: var(--c-p2); }
+.ctl__keys span { font-size: 9.5px; letter-spacing: .5px; }
+
+/* ---- Barras (HUD) ------------------------------------------------------------ */
+.bar {
+  position: relative;
+  height: 18px;
+  background: var(--c-hp-bg);
+  box-shadow: inset 0 0 0 2px var(--c-panel-edge);
+  overflow: hidden;
+}
+.bar__trail, .bar__fill { position: absolute; top: 0; bottom: 0; left: 0; width: 100%; }
+.bar__fill  { background: linear-gradient(180deg, #ffe97a 0%, var(--c-hp) 45%, #e9b91f 100%); transition: width .08s linear; }
+.bar__trail { background: #fff; opacity: .85; transition: width .5s ease .35s; }
+.bar::after {                         /* gomos */
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 calc(100% / var(--segs, 12) - 2px), rgba(0, 24, 28, .95) calc(100% / var(--segs, 12) - 2px) calc(100% / var(--segs, 12)));
+}
+.bar--rtl .bar__fill, .bar--rtl .bar__trail { left: auto; right: 0; }
+.bar--special { height: 8px; --segs: 10; box-shadow: inset 0 0 0 1px var(--c-panel-edge); background: #0b2f35; }
+.bar--special .bar__fill { background: var(--c-blue); transition: width .12s linear; }
+.bar--special.is-full .bar__fill { background: linear-gradient(90deg, #fff6a8, var(--c-yellow)); }
+
+/* ---- Tag (P1 / P2) ------------------------------------------------------------- */
+.tag {
+  display: inline-block;
+  padding: 1px 7px 2px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--c-yellow);
+  color: var(--c-ink);
+  box-shadow: 0 0 0 2px var(--c-outline);
+}
+.tag--p1 { background: var(--c-blue); box-shadow: 0 0 0 2px #1b6f95; }
+.tag--p2 { background: var(--c-red); color: #fff; box-shadow: 0 0 0 2px #8f1f1a; }
+
+/* ---- Fita "EM BREVE" ----------------------------------------------------------- */
+.tape {
+  position: absolute;
+  left: -6%; right: -6%; top: 50%;
+  padding: 4px 0;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1c1c1c;
+  background: repeating-linear-gradient(135deg, var(--c-yellow) 0 10px, #1c1c1c 10px 14px);
+  transform: translateY(-50%) rotate(-6deg);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, .6);
+}
+.tape > span { background: var(--c-yellow); padding: 1px 10px; }
+
+/* ---- Logo ------------------------------------------------------------------------ */
+.logo { position: absolute; left: 0; right: 0; top: 14px; text-align: center; pointer-events: none; }
+.logo img { height: 250px; }
+.logo__l1, .logo__l2 {
+  display: block;
+  font-family: var(--font-logo);
+  text-transform: uppercase;
+  line-height: .86;
+  transform: skew(-8deg);
+  -webkit-text-stroke: 7px #06202a;
+  paint-order: stroke fill;
+}
+.logo__l1 {
+  font-size: 104px;
+  color: var(--c-yellow);
+  text-shadow: 0 5px 0 var(--c-hot), 0 10px 0 var(--c-hot-dark), 0 16px 0 rgba(0, 0, 0, .45);
+}
+.logo__l2 {
+  font-size: 84px;
+  color: #fff;
+  margin-top: 8px;
+  text-shadow: 0 5px 0 #8fb7b8, 0 10px 0 var(--c-accent-dark), 0 16px 0 rgba(0, 0, 0, .45);
+}
+.logo__tag {
+  display: inline-block; margin-top: 18px; font-size: 12px; letter-spacing: 3px;
+  color: var(--c-text); text-shadow: 0 2px 0 #000;
+}
