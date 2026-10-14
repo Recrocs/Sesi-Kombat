@@ -23,6 +23,7 @@
 | Correção de cor + CRT | ok |
 | Golpes/especiais únicos por personagem | genérico, falta |
 | Som | só ganchos, sem áudio |
+| Controle Xbox (Gamepad API): luta + menus, 2 controles | ok (testado com controle simulado; falta teste com controle físico) |
 | Online | não iniciado |
 
 ## 4. Roadmap (ordem sugerida)
@@ -32,7 +33,7 @@
 4. **Mais mapas** com fundo animado; mais menu animado.
 5. **Torre**: mais modos, recompensas, finais por personagem, dificuldades da CPU, ranking local.
 6. **Online** (só planejado): lockstep determinístico sobre WebRTC (PeerJS) — precisa que a simulação use frame fixo e RNG com semente; trocar apenas inputs; sala por código de 4 letras; começar com versus 1x1.
-7. Controle (gamepad) e toque no celular.
+7. Toque no celular. (Controle/gamepad já feito — ver README.)
 
 ## 5. Testes (na pasta do scratchpad, Playwright + /opt/pw-browsers/chromium)
 `shoot.py` (todas as telas), `tower.py` (torre inteira), `soak.py` (60 lutas bot vs bot), `misc.py` (no-anim, grade), `pose.py` (folha de poses), `tw.py` (telas da torre). Se o scratchpad sumir, recriar: abrir file://…/index.html, navegar com teclado/`SK.Screens.go`, capturar erros de console.

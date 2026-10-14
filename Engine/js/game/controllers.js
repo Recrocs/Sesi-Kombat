@@ -5,7 +5,7 @@
      { left, right, up, down, block,  pressed: Set<nome de golpe> }
    `pressed` contém os golpes disparados NESTE frame.
 
-   Controllers existentes: HumanController (teclado) e CPUController.
+   Controllers existentes: HumanController (teclado + controle, via SK.Input) e CPUController.
    Para joystick, toque ou online: crie outra classe com o método read().
    ========================================================================== */
 (function () {

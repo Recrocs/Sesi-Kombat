@@ -25,7 +25,14 @@
     gameEl.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + s + ')';
   }
 
+  /* entrega uma intenção de menu ('up' | 'down' | 'left' | 'right' | 'confirm' | 'back' | 'tab') à tela atual */
+  function dispatchNav(nav, e) {
+    if (!nav || !current || !current.onKey) return;
+    current.onKey(nav, e);
+  }
+
   SK.Screens = {
+    dispatchNav,
     register(id, factory) { registry.set(id, factory); },
     get current() { return current; },
     get currentId() { return currentId; },
@@ -44,7 +51,7 @@
         const nav = SK.Input.nav(e);
         if (!nav || !current || !current.onKey) return;
         if (e.repeat && (nav === 'confirm' || nav === 'back' || nav === 'tab')) return;
-        current.onKey(nav, e);
+        dispatchNav(nav, e);
       });
     },
 

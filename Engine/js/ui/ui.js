@@ -70,14 +70,14 @@
   }
 
   /* ---- Toast ---------------------------------------------------------------- */
-  function toast(msg, ms = 1800) {
+  function toast(msg, ms = 1800, silent = false) {
     const root = document.getElementById('overlay-root');
     const el = document.createElement('div');
     el.className = 'toast panel panel--plain t-title';
     el.textContent = msg;
     root.appendChild(el);
     setTimeout(() => el.remove(), ms);
-    SK.Events.emit('ui:error');
+    if (!silent) SK.Events.emit('ui:error');
   }
 
   /* ---- Bloco de controles (seleção de personagem) --------------------------------- */

@@ -157,3 +157,20 @@ A luta só conhece **intenções** (`{left, right, up, down, block, pressed}`), 
 - Pose dos lutadores: um único sprite estático (agora virado para o lado do movimento) com poses simples; indicador do alcance do golpe (círculo amarelo) e faíscas de impacto.
 - Projétil: bolinha brilhante.
 - Sem áudio.
+
+
+## Controle (Xbox / Gamepad API)
+Plugue o controle (USB ou Bluetooth), abra o jogo no Chrome/Edge e aperte qualquer botão. Teclado e mouse continuam funcionando junto.
+
+| Controle | Luta | Menus |
+|---|---|---|
+| Analógico esq. / direcional | mover (↓ = abaixar) | navegar |
+| A | pular | confirmar |
+| B / LB / LT | defesa | voltar (B) |
+| X | golpe | — |
+| Y | lançar | alternar modo (TAB) |
+| RB / RT | especial | — |
+| Start | pausar / despausar | confirmar |
+| View/Select | — | alternar modo (TAB) |
+
+1º controle conectado = P1, 2º = P2. Código em `js/core/input.js` (zona morta 0.25, histerese, 1 evento por clique).

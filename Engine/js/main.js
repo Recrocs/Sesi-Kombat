@@ -30,6 +30,7 @@
     function frame(now) {
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
+      try { SK.Input.poll(now); } catch (err) { console.error(err); }
       try { SK.Screens.update(dt); } catch (err) { console.error(err); }
       SK.Input.endFrame();
       requestAnimationFrame(frame);

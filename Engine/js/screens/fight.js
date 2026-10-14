@@ -173,12 +173,14 @@ SK.Screens.register('fight', function (params) {
       updateHud();
     },
 
-    onKey(key) {
+    onKey(key, e) {
       if (finished) return resultNav ? resultNav.handle(key) : false;
       if (paused) {
         if (key === 'back') { setPaused(false); return true; }
         return pauseNav.handle(key);
       }
+      /* controle: o botão B é DEFESA durante a luta; só o Start pausa */
+      if (key === 'back' && e && e.source === 'gamepad' && e.button !== 'start') return false;
       if (key === 'back') { setPaused(true); return true; }
       return false;
     },
