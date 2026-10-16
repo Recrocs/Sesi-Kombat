@@ -210,7 +210,17 @@ body { -webkit-font-smoothing: antialiased; font-weight: 500; letter-spacing: .4
 .cs__prompt { top: 128px; }
 .cs__ctl { height: 92px; top: 392px; }
 .ctl__keys b { font-size: 22px; }
-.cs__grid { left: 246px; top: 164px; width: 468px; gap: 12px; grid-template-columns: repeat(var(--cols, 4), 1fr); }
+.cs__grid { left: 240px; top: 160px; width: 480px; gap: 12px; grid-template-columns: repeat(var(--cols, 4), 1fr); }
+/* Grade rolável: com mais personagens que cabem (3 linhas), só esta área rola para baixo */
+.cs__grid {
+  box-sizing: border-box; height: 322px; padding: 6px 8px 6px 6px;
+  align-content: start; grid-auto-rows: 92px;
+  overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain;
+  scrollbar-width: thin; scrollbar-color: var(--c-yellow) rgba(0, 0, 0, .35);
+}
+.cs__grid::-webkit-scrollbar { width: 8px; }
+.cs__grid::-webkit-scrollbar-track { background: rgba(0, 0, 0, .35); border-radius: 4px; }
+.cs__grid::-webkit-scrollbar-thumb { background: var(--c-yellow); border-radius: 4px; }
 .char-card { height: 92px; }
 
 .screen.is-active:not(.is-settled) .cs__title, .screen.is-active:not(.is-settled) .back-btn { animation: fx-drop .45s cubic-bezier(.2, 1.2, .4, 1) both; }
@@ -368,3 +378,4 @@ body.no-anim .screen { transform: none; }
 /* correção de cor escolhida nas Configurações */
 body.grade-soft  { --sat-bg: .82; --sat-stage: .9; }
 body.grade-vivid { --sat-bg: 1.45; --sat-stage: 1.22; }
+.cs__grid .char-card { scroll-margin: 8px; }

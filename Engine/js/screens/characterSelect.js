@@ -154,7 +154,7 @@ SK.Screens.register('characterSelect', function (params) {
       const cards = Array.from(el.querySelectorAll('.char-card'));
       nav = new SK.UI.NavList(cards, {
         columns: cols, cls: 'is-cursor',
-        onChange: () => { if (root) refresh(); },
+        onChange: (i, el) => { if (root) { refresh(); el && el.scrollIntoView({ block: 'nearest' }); } },
         onActivate: (i) => pick(i),
       });
       refresh();
