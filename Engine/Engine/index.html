@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Senai Kombat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#040f14">
+  <link rel="icon" href="data:,">
+
+  <!-- Fontes: locais, em assets/fonts/ (carregadas por css/tokens.css) -->
+
+  <!-- Estilo -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
+  <link rel="stylesheet" href="css/ui-fx.css">
+  <link rel="stylesheet" href="css/tower.css">
+</head>
+<body>
+  <div id="game-frame">
+    <div id="game">
+      <div id="screen-root"></div>
+      <div id="overlay-root"></div>
+      <div id="fx-scanlines"></div>
+      <div id="debug-badge"></div>
+    </div>
+  </div>
+
+  <!-- ORDEM IMPORTA: núcleo → interface → engine de luta → conteúdo → telas → main -->
+
+  <!-- Núcleo -->
+  <script src="js/core/namespace.js"></script>
+  <script src="js/core/events.js"></script>
+  <script src="js/core/config.js"></script>
+  <script src="js/core/settings.js"></script>
+  <script src="js/core/assets.js"></script>
+  <script src="js/core/input.js"></script>
+  <script src="js/core/audio.js"></script>
+  <script src="js/core/screens.js"></script>
+
+  <!-- Interface -->
+  <script src="js/ui/ui.js"></script>
+  <script src="js/ui/logo.js"></script>
+
+  <!-- Engine de luta -->
+  <script src="js/game/moves.js"></script>
+  <script src="js/game/animator.js"></script>
+  <script src="js/game/controllers.js"></script>
+  <script src="js/game/projectile.js"></script>
+  <script src="js/game/fighter.js"></script>
+  <script src="js/game/match.js"></script>
+  <script src="js/game/renderer.js"></script>
+  <script src="js/game/tower.js"></script>
+
+  <!-- CONTEÚDO: um arquivo por personagem / cenário. Para adicionar um novo, inclua uma linha aqui. -->
+  <script src="js/content/audio.js"></script>
+  <script src="js/content/tower.js"></script>
+  <script src="js/content/rigs.js"></script>
+  <script src="js/content/stages/society.js"></script>
+  <script src="js/content/stages/quadra.js"></script>
+  <script src="js/content/stages/futmesa.js"></script>
+  <script src="js/content/stages/refeitorio.js"></script>
+  <script src="js/content/stages/salas.js"></script>
+  <script src="js/content/stages/xv.js"></script>
+  <script src="js/content/stages/sellor.js"></script>
+  <script src="js/content/stages/sala.js"></script>
+
+  <script src="js/content/characters/chico.js"></script>
+  <script src="js/content/characters/gerbi.js"></script>
+  <script src="js/content/characters/italo.js"></script>
+  <script src="js/content/characters/jordan.js"></script>
+  <script src="js/content/characters/juliano.js"></script>
+  <script src="js/content/characters/kaique.js"></script>
+  <script src="js/content/characters/luis.js"></script>
+  <script src="js/content/characters/matheus.js"></script>
+  <script src="js/content/characters/robson.js"></script>
+  <script src="js/content/characters/vicenzo.js"></script>
+  <script src="js/content/characters/otavio.js"></script>
+  <script src="js/content/characters/reenye.js"></script>
+
+
+  <!-- Telas -->
+  <script src="js/screens/boot.js"></script>
+  <script src="js/screens/title.js"></script>
+  <script src="js/screens/characterSelect.js"></script>
+  <script src="js/screens/stageSelect.js"></script>
+  <script src="js/screens/towerMenu.js"></script>
+  <script src="js/screens/tower.js"></script>
+  <script src="js/screens/versus.js"></script>
+  <script src="js/screens/fight.js"></script>
+  <script src="js/screens/settings.js"></script>
+  <script src="js/screens/suggestions.js"></script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
+-
