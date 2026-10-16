@@ -9,10 +9,19 @@
 SK.Characters.register({
   id: 'otavio',
   name: 'OTAVIO',
+<<<<<<< HEAD
+  themeColor: '#2fbf5a',          // cor de destaque (cards, versus)
+
+  sprites: {
+    portrait: 'assets/characters/otavio/portrait.png',   // busto (cards e versus)
+    portraitHi: 'assets/characters/otavio/portrait1.png',  // busto grande (tela de VERSUS)
+    icon: 'assets/characters/otavio/icon.png',             // cartão da seleção (se não existir, usa portrait)
+=======
   themeColor: '#58bfe8',          // cor de destaque (cards, versus)
 
   sprites: {
     portrait: 'assets/characters/otavio/portrait.png',   // busto (cards e versus)
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
     idle: 'assets/characters/otavio/idle.png',           // corpo inteiro: menus + pose padrão na luta
   },
   facing: 'left',                 // para onde o sprite ORIGINAL olha no PNG ('right' | 'left') — detectado: todos olham p/ a ESQUERDA
@@ -30,9 +39,15 @@ SK.Characters.register({
   /* Animações — vazio por enquanto; veja js/game/animator.js para o formato. */
   /* ANIM:BEGIN (gerado por tools/make_basic_sprites.py — pode editar à mão) */
   animations: {
+<<<<<<< HEAD
+    walk: { src: 'assets/characters/otavio/walk.png', frameWidth: 366, frameHeight: 480, frames: 8, fps: 11, height: 200 },
+    jump: { src: 'assets/characters/otavio/jump.png', frameWidth: 366, frameHeight: 480, frames: 6, fps: 9, loop: false, height: 200 },
+    crouch: { src: 'assets/characters/otavio/crouch.png', frameWidth: 366, frameHeight: 480, frames: 3, fps: 22, loop: false, height: 200 },
+=======
     walk: { src: 'assets/characters/otavio/walk.png', frameWidth: 354, frameHeight: 480, frames: 8, fps: 11, height: 200 },
     jump: { src: 'assets/characters/otavio/jump.png', frameWidth: 354, frameHeight: 480, frames: 6, fps: 9, loop: false, height: 200 },
     crouch: { src: 'assets/characters/otavio/crouch.png', frameWidth: 354, frameHeight: 480, frames: 3, fps: 22, loop: false, height: 200 },
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
   },
   /* ANIM:END */
 

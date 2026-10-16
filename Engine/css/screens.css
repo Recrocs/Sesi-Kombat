@@ -235,17 +235,31 @@ body.hide-fight-controls .hud__ctl { display: none; }
 .lu--r0 { bottom: 40px; height: 215px; z-index: 2; }
 .lu--r1 { bottom: 140px; height: 170px; z-index: 1; }
 .lu--r1 img { filter: brightness(.72) saturate(.9) drop-shadow(0 4px 0 rgba(0, 0, 0, .4)); }
+<<<<<<< HEAD
+.lu--l:nth-child(1) { left: 4px; }   .lu--l:nth-child(2) { left: 52px; }
+.lu--l:nth-child(3) { left: 86px; }  .lu--l:nth-child(4) { left: 142px; }
+.lu--l:nth-child(5) { left: 170px; } .lu--l:nth-child(6) { left: 226px; }
+.lu--r:nth-child(1) { right: 4px; }  .lu--r:nth-child(2) { right: 52px; }
+.lu--r:nth-child(3) { right: 86px; } .lu--r:nth-child(4) { right: 142px; }
+.lu--r:nth-child(5) { right: 170px; } .lu--r:nth-child(6) { right: 226px; }
+=======
 .lu--l:nth-child(1) { left: 6px; }   .lu--l:nth-child(2) { left: 50px; }
 .lu--l:nth-child(3) { left: 92px; }  .lu--l:nth-child(4) { left: 138px; }
 .lu--l:nth-child(5) { left: 176px; }
 .lu--r:nth-child(1) { right: 6px; }  .lu--r:nth-child(2) { right: 50px; }
 .lu--r:nth-child(3) { right: 92px; } .lu--r:nth-child(4) { right: 138px; }
 .lu--r:nth-child(5) { right: 176px; }
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
 .lu-spot { position: absolute; bottom: 0; width: 300px; height: 460px; pointer-events: none; z-index: 0;
   background: radial-gradient(ellipse at 50% 100%, rgba(246, 201, 59, .22), transparent 65%); }
 .lu-spot--l { left: -10px; } .lu-spot--r { right: -10px; }
 .title--lineup .title__menu { top: 300px; }
 .screen.is-active:not(.is-settled) .lu--l { animation: fx-in-l .7s cubic-bezier(.2,.9,.3,1) both; animation-delay: calc(.15s + var(--k) * .07s); }
 .screen.is-active:not(.is-settled) .lu--r { animation: fx-in-r .7s cubic-bezier(.2,.9,.3,1) both; animation-delay: calc(.15s + var(--k) * .07s); }
+<<<<<<< HEAD
+.lu-wrap--l { transform: scale(.8); transform-origin: 0 100%; }
+.lu-wrap--r { transform: scale(.8); transform-origin: 100% 100%; }
+=======
 .lu-wrap--l { transform: scale(.88); transform-origin: 0 100%; }
 .lu-wrap--r { transform: scale(.88); transform-origin: 100% 100%; }
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9

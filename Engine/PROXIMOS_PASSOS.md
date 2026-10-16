@@ -2,7 +2,11 @@
 
 ## 1. PROMPT PARA COLAR NUM CHAT NOVO
 > Estou desenvolvendo o **Senai Kombat**, jogo de luta de navegador (HTML/CSS/JS puro, canvas 960×540) só para amigos. Eu NÃO programo: responda em português, curto, e faça você mesmo os testes.
+<<<<<<< HEAD
+> Vou anexar o zip do projeto (senai-kombat-v0.5.zip). Leia o `PROXIMOS_PASSOS.md` e o `README.md` dentro dele, analise tudo e continue a partir do "Status" e do "Roadmap". Mantenha o jogo data-driven (personagens, mapas, golpes, sons em `js/content/` e `js/core/config.js`). Teste com Playwright (screenshots, bot-vs-bot, torre completa) antes de entregar um zip novo e atualize este arquivo no fim.
+=======
 > Vou anexar o zip do projeto (senai-kombat-v0.4.zip). Leia o `PROXIMOS_PASSOS.md` e o `README.md` dentro dele, analise tudo e continue a partir do "Status" e do "Roadmap". Mantenha o jogo data-driven (personagens, mapas, golpes, sons em `js/content/` e `js/core/config.js`). Teste com Playwright (screenshots, bot-vs-bot, torre completa) antes de entregar um zip novo e atualize este arquivo no fim.
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
 > Assuntos desta vez: [escreva aqui o que quer].
 
 ## 2. Resumo do projeto
@@ -12,6 +16,18 @@
 - Estilo: tokens em `css/tokens.css`; efeitos em `css/ui-fx.css`; torre em `css/tower.css`. Animações de entrada só na interface (`.is-settled`, `body.no-anim`).
 - Cores: teal/azul/amarelo + vermelho/branco SENAI-SESI; correção em `--sat-bg/--sat-stage`, classes `grade-soft|grade-vivid`.
 
+<<<<<<< HEAD
+## 3. Status (v0.5)
+| Item | Estado |
+|---|---|
+| 12 personagens, 8 mapas | ok |
+| Controle (gamepad Xbox) | ok (P1 = 1º controle, P2 = 2º) |
+| Trilha + efeitos sintetizados | ok (1 música para tudo; falta música por mapa/luta) |
+| Menu, seleção, versus, luta, configurações | ok |
+| Torre Clássica e Maluca (9 andares, modificadores, chefe) | ok, visual pagode |
+| Tela principal lineup (+ duel) | ok |
+| Sprites andar/pular/agachar | provisório (gerado de idle.png; agachar do Otávio feito à mão não serviu — escala errada) |
+=======
 ## 3. Status (v0.4)
 | Item | Estado |
 |---|---|
@@ -20,12 +36,19 @@
 | Torre Clássica e Maluca (9 andares, modificadores, chefe) | ok, visual pagode |
 | Tela principal lineup (+ duel) | ok |
 | Sprites andar/pular/agachar | provisório (boneco em código) |
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
 | Correção de cor + CRT | ok |
 | Golpes/especiais únicos por personagem | genérico, falta |
 | Som | só ganchos, sem áudio |
 | Controle Xbox (Gamepad API): luta + menus, 2 controles | ok (testado com controle simulado; falta teste com controle físico) |
 | Online | não iniciado |
 
+<<<<<<< HEAD
+## 3b. Fluxo para novos assets
+1. Colocar `idle.png`/`portrait.png` em `assets/characters/<id>/`; 2. `python tools/polish_sprites.py`; 3. `python tools/make_basic_sprites.py`; 4. `python tools/make_rigs.py`; 5. fundos novos: `python tools/upscale_stages.py`.
+
+=======
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
 ## 4. Roadmap (ordem sugerida)
 1. **Arte real**: frames desenhados de andar/pular/agachar/golpe/dano/KO por personagem em `animations` (substitui o boneco sozinho). Se o usuário mandar referência da tela principal, refazer `title.js`.
 2. **Golpes e especiais por personagem** (dados em cada `characters/*.js`): combos, projétil, defesa, balanço de dano.

@@ -7,7 +7,11 @@
 (function (g) {
   'use strict';
   const SK = (g.SK = g.SK || {});
+<<<<<<< HEAD
+  SK.version = '0.5.0';
+=======
   SK.version = '0.4.0';
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
 
   /* Registro genérico: personagens, cenários e qualquer conteúdo futuro
      entram no jogo chamando  SK.Characters.register({...})  — sem tocar na engine. */

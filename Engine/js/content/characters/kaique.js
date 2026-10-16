@@ -5,6 +5,11 @@ SK.Characters.register({
   themeColor: '#ff5fa2',
   sprites: {
     portrait: 'assets/characters/kaique/portrait.png',
+<<<<<<< HEAD
+    portraitHi: 'assets/characters/kaique/portrait1.png',  // busto grande (tela de VERSUS)
+    icon: 'assets/characters/kaique/icon.png',             // cartão da seleção (se não existir, usa portrait)
+=======
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
     idle: 'assets/characters/kaique/idle.png',
   },
   facing: 'left',                 // para onde o sprite ORIGINAL olha no PNG ('right' | 'left') — detectado: todos olham p/ a ESQUERDA

@@ -24,6 +24,17 @@ Ao andar, o lutador **vira para o lado em que está andando** (para trás, ele f
 `ESC` pausa · `F` tela cheia (nos menus) · `F2` mostra as caixas de colisão · `TAB` troca o modo na seleção.
 Todos os controles ficam em `js/core/config.js` → `controls`.
 
+<<<<<<< HEAD
+## Novidades da v0.5
+- **Base**: o Engine que você atualizou no GitHub (controle/gamepad, Otavio, Reenye, mapas XV, Sellor e Sala) + polimento.
+- **Trilha sonora** (`assets/audio/music/senai_kombat_theme.mp3`) toca em todas as telas e abaixa sozinha durante a luta (`audio.duck` em `config.js`). Efeitos sintetizados (menus, golpe, defesa, pulo, KO, round) em `js/content/audio.js` — troque por .wav quando quiser.
+- **Nitidez**: canvas da luta em 2x (`renderScale`), fundos em 1920x1080 (`tools/upscale_stages.py`), sprites padronizados em 480 px (`tools/polish_sprites.py`).
+- **Sprites andar/pular/agachar** para os 12 personagens (`tools/make_basic_sprites.py`, provisórios).
+- **Retratos**: cartão da seleção usa `icon.png`; tela de VERSUS e Torre usam o busto `portrait1.png` (nítido).
+- Torre agora tem 11 andares (todos os outros personagens). Tela principal mostra os 12 lutadores.
+
+=======
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
 ## Novidades da v0.4
 - **Torre estilo pagode (Mortal Kombat)**: andares com retrato, serpente dourada no andar atual, tochas, torres ao fundo. Menu da torre só com Clássica e Maluca (sem "Em breve").
 - **Cores corrigidas**: paleta azul-petróleo / amarelo / vermelho / branco, menos saturação. Em Configurações > *Correção de cor* (Suave / Normal / Vívida). O efeito CRT/VHS continua.

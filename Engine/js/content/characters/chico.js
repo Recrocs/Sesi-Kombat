@@ -13,6 +13,11 @@ SK.Characters.register({
 
   sprites: {
     portrait: 'assets/characters/chico/portrait.png',   // busto (cards e versus)
+<<<<<<< HEAD
+    portraitHi: 'assets/characters/chico/portrait1.png',  // busto grande (tela de VERSUS)
+    icon: 'assets/characters/chico/icon.png',             // cartão da seleção (se não existir, usa portrait)
+=======
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
     idle: 'assets/characters/chico/idle.png',           // corpo inteiro: menus + pose padrão na luta
   },
   facing: 'left',                 // para onde o sprite ORIGINAL olha no PNG ('right' | 'left') — detectado: todos olham p/ a ESQUERDA

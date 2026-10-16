@@ -51,7 +51,11 @@ SK.Screens.register('tower', function () {
     return '<div class="tw__floor' + cls + '" style="--theme:' + c.themeColor + '">' +
       '<div class="tw__balcony"></div>' +
       '<span class="tw__torch tw__torch--l"></span><span class="tw__torch tw__torch--r"></span>' +
+<<<<<<< HEAD
+      '<div class="tw__alcove"><img src="' + (c.sprites.portraitHi || c.sprites.portrait) + '" alt="">' +
+=======
       '<div class="tw__alcove"><img src="' + c.sprites.portrait + '" alt="">' +
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
         (done ? '<span class="tw__x"></span><span class="tw__stamp">VENCIDO</span>' : '') +
         (cur ? '<span class="tw__spot"></span>' : '') + '</div>' +
       '<div class="tw__plate">' + SK.util.esc(plate) + '</div></div>';

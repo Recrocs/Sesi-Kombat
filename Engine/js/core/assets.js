@@ -30,7 +30,11 @@
 
     SK.Characters.all().forEach((c) => {
       const s = c.sprites || {};
+<<<<<<< HEAD
+      add(s.portrait); add(s.portraitHi); add(s.icon); add(s.idle);
+=======
       add(s.portrait); add(s.idle);
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
       Object.values(c.animations || {}).forEach((a) => add(a.src));
       Object.values(c.moves || {}).forEach((m) => m && m.projectile && add(m.projectile.sprite));
     });

@@ -103,7 +103,11 @@ SK.Screens.register('fight', function (params) {
   /* ---- Ciclo da tela ---------------------------------------------------------------- */
   return {
     render() {
+<<<<<<< HEAD
+      return '<canvas class="fight__canvas" width="' + (SK.config.width * (SK.config.renderScale || 1)) + '" height="' + (SK.config.height * (SK.config.renderScale || 1)) + '"></canvas>' +
+=======
       return '<canvas class="fight__canvas" width="' + SK.config.width + '" height="' + SK.config.height + '"></canvas>' +
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
         '<div class="hud">' + hudSide(0, c1) +
           '<div class="hud__timer panel abs"><div class="hud__timer-n"></div><div class="hud__timer-r"></div></div>' +
           hudSide(1, c2) +

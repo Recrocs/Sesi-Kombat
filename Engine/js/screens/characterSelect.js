@@ -29,7 +29,11 @@ SK.Screens.register('characterSelect', function (params) {
     }
     return '<div class="char-card panel" data-i="' + i + '" style="--i:' + i + ';--theme:' + c.themeColor + '">' +
       '<span class="char-card__bg"></span>' +
+<<<<<<< HEAD
+      '<img class="char-card__img" src="' + (c.sprites.icon || c.sprites.portrait) + '" alt="">' +
+=======
       '<img class="char-card__img" src="' + c.sprites.portrait + '" alt="">' +
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
       '<span class="char-card__tags"><span class="tag tag--p1" data-tag="1" style="display:none">P1</span><span class="tag tag--p2" data-tag="2" style="display:none">P2</span></span>' +
       '<span class="char-card__name">' + SK.util.esc(c.name) + '</span></div>';
   }

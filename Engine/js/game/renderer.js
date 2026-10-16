@@ -38,7 +38,16 @@
     constructor(canvas) {
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d');
+<<<<<<< HEAD
+      /* o canvas é desenhado em SK.config.renderScale x (nítido em tela cheia); o jogo continua pensando em 960x540 */
+      this.S = canvas.width / SK.config.width;
+      this.W = SK.config.width; this.H = SK.config.height;
+      this.ctx.setTransform(this.S, 0, 0, this.S, 0, 0);
+      this.ctx.imageSmoothingEnabled = true;
+      this.ctx.imageSmoothingQuality = 'high';
+=======
       this.W = canvas.width; this.H = canvas.height;
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
     }
 
     draw(match) {

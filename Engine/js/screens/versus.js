@@ -20,8 +20,13 @@ SK.Screens.register('versus', function (params) {
         '<div class="back-btn btn panel abs" data-act="back">VOLTAR</div>' +
         '<div class="versus__title screen-title panel abs t-title">' + (tower ? (P.boss ? 'CHEFE FINAL' : 'ANDAR ' + P.floorNumber + ' / ' + P.floorTotal) : SK.util.esc(SK.config.title)) + '</div>' +
         (tower && P.modName ? '<div class="versus__rule abs"><span>REGRA: ' + SK.util.esc(P.modName) + '</span></div>' : '') +
+<<<<<<< HEAD
+        '<div class="versus__card versus__card--l panel abs" style="--theme:' + c1.themeColor + '"><img src="' + (c1.sprites.portraitHi || c1.sprites.portrait) + '" alt=""></div>' +
+        '<div class="versus__card versus__card--r panel abs" style="--theme:' + c2.themeColor + '"><img src="' + (c2.sprites.portraitHi || c2.sprites.portrait) + '" alt=""></div>' +
+=======
         '<div class="versus__card versus__card--l panel abs" style="--theme:' + c1.themeColor + '"><img src="' + c1.sprites.portrait + '" alt=""></div>' +
         '<div class="versus__card versus__card--r panel abs" style="--theme:' + c2.themeColor + '"><img src="' + c2.sprites.portrait + '" alt=""></div>' +
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
         '<div class="versus__name versus__name--l panel btn abs t-title">' + SK.util.esc(c1.name) + '</div>' +
         '<div class="versus__name versus__name--r panel btn abs t-title">' + SK.util.esc(n2) + '</div>' +
         '<div class="versus__vs abs">' + vs + '</div>' +

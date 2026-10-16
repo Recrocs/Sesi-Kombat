@@ -33,6 +33,17 @@ SK.Rigs = {
     "hipY": 0.565,
     "splitX": 0.5
   },
+<<<<<<< HEAD
+  "otavio": {
+    "hipY": 0.596,
+    "splitX": 0.516
+  },
+  "reenye": {
+    "hipY": 0.656,
+    "splitX": 0.515
+  },
+=======
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
   "robson": {
     "hipY": 0.606,
     "splitX": 0.512

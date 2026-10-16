@@ -9,6 +9,11 @@ SK.config = {
   credits: 'Developed by ronildos',
   suggestionsUrl: '',                    // link do formulário de sugestões (Google Forms etc.)
 
+<<<<<<< HEAD
+  renderScale: 2,                        // nitidez do canvas da luta (1 = leve, 2 = nítido, 3 = máximo)
+
+=======
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
   width: 960,
   height: 540,
 
@@ -69,6 +74,23 @@ SK.config = {
     },
   },
 
+<<<<<<< HEAD
+  /* ---- Áudio ----------------------------------------------------------------
+     Sons registrados em js/content/audio.js. `events` liga eventos do jogo a sons;
+     `music` liga telas a músicas (a mesma música continua tocando entre telas);
+     `duck` abaixa a música numa tela (1 = normal, 0.5 = metade).                 */
+  audio: {
+    events: {
+      'ui:move': 'ui_move', 'ui:confirm': 'ui_confirm', 'ui:back': 'ui_back', 'ui:error': 'ui_error',
+      'fight:move': 'swing', 'fight:hit': 'hit', 'fight:block': 'block', 'fight:jump': 'jump', 'fight:land': 'land',
+      'fight:projectile': 'shot', 'fight:ko': 'ko', 'round:intro': 'round', 'round:fight': 'fight', 'match:end': 'win',
+    },
+    music: {
+      title: 'music_theme', characterSelect: 'music_theme', stageSelect: 'music_theme', versus: 'music_theme',
+      fight: 'music_theme', settings: 'music_theme', suggestions: 'music_theme', towerMenu: 'music_theme', tower: 'music_theme',
+    },
+    duck: { fight: 0.45, versus: 0.8 },
+=======
   /* ---- Áudio (vazio até o sound design chegar) ------------------------------
      Veja js/content/audio.js e o README: registre os arquivos lá e ligue aos
      eventos aqui.                                                               */
@@ -83,5 +105,6 @@ SK.config = {
       // title: 'music_title',        // chave = id da tela
       // fight: 'music_fight',
     },
+>>>>>>> 5c13f29e29ce36520b26a88da6f18bb8d20c18d9
   },
 };
