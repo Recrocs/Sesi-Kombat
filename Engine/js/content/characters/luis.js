@@ -12,7 +12,7 @@ SK.Characters.register({
   facing: 'left',                 // para onde o sprite ORIGINAL olha no PNG ('right' | 'left') — detectado: todos olham p/ a ESQUERDA
   size: { spriteHeight: 200, hurtW: 64, hurtH: 172, crouchH: 112 },
   stats: { maxHp: 100, speed: 235, jumpPower: 700 },
-  moves: {},
+  moves: { projectile: { projectile: { sprite: 'assets/powers/luisPower.png' } } },
   /* ANIM:BEGIN (gerado por tools/make_basic_sprites.py — pode editar à mão) */
   animations: {
     walk: { src: 'assets/characters/luis/walk.png', frameWidth: 298, frameHeight: 480, frames: 8, fps: 11, height: 200 },
