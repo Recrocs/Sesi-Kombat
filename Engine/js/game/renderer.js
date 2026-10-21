@@ -188,8 +188,10 @@
       const img = p.sprite && SK.Assets.get(p.sprite);
       c.save();
       if (img) {
-        c.translate(p.x, p.y); c.scale(p.dir, 1);
-        c.drawImage(img, -p.w / 2, -p.h / 2, p.w, p.h);
+        c.translate(p.x, p.y);
+        const k = p.drawSize / Math.max(img.width, img.height);   // mantém a proporção original
+        const dw = img.width * k, dh = img.height * k;
+        c.drawImage(img, -dw / 2, -dh / 2, dw, dh);
       } else {                                                    // placeholder
         const g = c.createRadialGradient(p.x, p.y, 2, p.x, p.y, p.w * 0.8);
         g.addColorStop(0, '#fff'); g.addColorStop(0.45, p.color); g.addColorStop(1, 'rgba(253,215,70,0)');

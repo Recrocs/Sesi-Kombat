@@ -67,7 +67,7 @@
     radial-gradient(circle at 50% 38%, rgba(255, 255, 255, .22), transparent 58%),
     linear-gradient(160deg, var(--theme, #2a5a6a) 0%, #0b1d27 115%);
 }
-.char-card__img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.char-card__img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
 .char-card__name {
   position: absolute; left: 0; right: 0; bottom: 0; height: 22px;
   display: flex; align-items: center; justify-content: center;
@@ -138,7 +138,7 @@
 .versus__card--l { left: 26px; }
 .versus__card--r { right: 26px; }
 .versus__card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, .25), transparent 60%), linear-gradient(160deg, var(--theme), #060f20 120%); }
-.versus__card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; }
+.versus__card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
 .versus__name { top: 414px; width: 270px; height: 44px; font-size: 20px; }
 .versus__name--l { left: 22px; }
 .versus__name--r { right: 22px; }

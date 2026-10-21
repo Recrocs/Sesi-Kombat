@@ -17,6 +17,7 @@
       this.life = cfg.lifetime;
       this.color = cfg.color;
       this.sprite = cfg.sprite;
+      this.drawSize = cfg.drawSize || 60;   // maior lado do sprite desenhado (a hitbox w/h não muda)
       this.dead = false;
     }
     get rect() { return { x: this.x - this.w / 2, y: this.y - this.h / 2, w: this.w, h: this.h }; }
