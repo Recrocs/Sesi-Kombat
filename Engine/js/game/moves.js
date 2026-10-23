@@ -9,6 +9,8 @@
      active      janela em que o golpe acerta
      recovery    tempo parado depois do golpe
      damage, hitstun, blockstun, knockback, pushbackBlock
+     damagePct   (opcional) dano em % da vida máxima de quem apanha; tem prioridade sobre `damage`
+     projectile.spin   (opcional) giro do projétil em rad/s (ex.: taco-frisbee do Luis)
      hitbox      {x, y, w, h}  relativo aos pés do lutador, olhando p/ a direita (y negativo = para cima)
      cost        custo de barra de especial (0 = grátis)
      cooldown    tempo mínimo entre usos

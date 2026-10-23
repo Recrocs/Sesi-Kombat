@@ -189,6 +189,7 @@
       c.save();
       if (img) {
         c.translate(p.x, p.y);
+        if (p.angle) c.rotate(p.angle);
         const k = p.drawSize / Math.max(img.width, img.height);   // mantém a proporção original
         const dw = img.width * k, dh = img.height * k;
         c.drawImage(img, -dw / 2, -dh / 2, dw, dh);

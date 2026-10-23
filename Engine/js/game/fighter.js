@@ -162,7 +162,9 @@
       const inFront = (ax - this.x) * this.facing > 0;
       const blocking = this.state === 'block' && inFront && this.onGround;
 
-      const dmg = (move.damage || 0) * ((attacker.mods && attacker.mods.damage) || 1);
+      /* `damagePct` = dano em % da vida máxima de quem apanha (ex.: 15 → tira 15% da barra); senão usa `damage` fixo */
+      const base = move.damagePct != null ? this.stats.maxHp * move.damagePct / 100 : (move.damage || 0);
+      const dmg = base * ((attacker.mods && attacker.mods.damage) || 1);
 
       if (blocking) {
         const chip = Math.round(dmg * match.cfg.chipDamage);
