@@ -23,6 +23,7 @@
         new SK.Fighter(o.p2.char, 1, o.p2.controller, o.p2.mods),
       ];
       this.projectiles = [];
+      this.pending = [];                       // projéteis agendados (volleys)
       this.effects = [];
       this.round = 0;
       this.phase = 'intro';
@@ -44,6 +45,7 @@
       this.round++;
       this.fighters.forEach((f, i) => f.resetRound(this.cfg.startX[i], i === 0 ? 1 : -1, this.groundY));
       this.projectiles = [];
+      this.pending = [];
       this.effects = [];
       this.timer = this.roundTime;
       this.phase = 'intro'; this.phaseTime = 0;
@@ -64,6 +66,7 @@
       if (winner) { winner.wins++; winner._set('win'); }
       else { a.wins++; b.wins++; }                         // empate: ponto para os dois
       this.projectiles = [];
+      this.pending = [];
       this.lastRound = { winner, reason };
       this.phase = 'roundEnd'; this.phaseTime = 0;
       SK.Events.emit('round:end', { winner, reason, round: this.round });
@@ -94,6 +97,10 @@
 
       this.fighters.forEach((f) => f.update(dt, this));
 
+      if (this.phase === 'fight') {
+        this.pending.forEach((q) => { q.t -= ms; if (q.t <= 0) { q.done = true; this._spawnOne(q.owner, q.move, q.ov); } });
+        this.pending = this.pending.filter((q) => !q.done);
+      }
       if (this.phase === 'fight' || this.phase === 'roundEnd') {
         this.projectiles.forEach((p) => p.update(dt, this));
         this.projectiles = this.projectiles.filter((p) => !p.dead);
@@ -125,9 +132,16 @@
     }
 
     spawnProjectile(owner, move) {
-      const p = new SK.Projectile(owner, move, move.projectile);
-      this.projectiles.push(p);
+      const cfg = move.projectile, v = cfg.volley;
+      const list = v && SK.Volleys[v.pattern] ? SK.Volleys[v.pattern](owner, this.opponentOf(owner), v, this, cfg) : [{ delay: 0, ov: {} }];
+      list.forEach((it) => {
+        if (it.delay > 0) this.pending.push({ t: it.delay, owner, move, ov: it.ov });
+        else this._spawnOne(owner, move, it.ov);
+      });
       SK.Events.emit('fight:projectile', { fighter: owner, move });
+    }
+    _spawnOne(owner, move, ov) {
+      this.projectiles.push(new SK.Projectile(owner, move, Object.assign({}, move.projectile, ov)));
     }
 
     registerHit(att, def, move, result, x, y) {

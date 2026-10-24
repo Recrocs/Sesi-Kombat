@@ -32,7 +32,11 @@
       const s = c.sprites || {};
       add(s.portrait); add(s.portraitHi); add(s.icon); add(s.idle);
       Object.values(c.animations || {}).forEach((a) => add(a.src));
-      Object.values(c.moves || {}).forEach((m) => m && m.projectile && add(m.projectile.sprite));
+      Object.values(c.moves || {}).forEach((m) => {
+        if (!m) return;
+        if (m.projectile) { add(m.projectile.sprite); (m.projectile.sprites || []).forEach(add); }
+        if (m.ride) add(m.ride.sprite);
+      });
     });
     SK.Stages.all().forEach((st) => {
       add(st.background); add(st.thumb);

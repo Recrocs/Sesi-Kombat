@@ -27,7 +27,21 @@ SK.Characters.register({
 
   /* Sobrescreva golpes padrão (veja js/game/moves.js) ou crie novos. Exemplo:
      moves: { attack: { damage: 9 }, special: { hitbox: { x: 20, y: -190, w: 160, h: 140 } } } */
-  moves: { projectile: { projectile: { sprite: 'assets/powers/otavioPower.png' } } },   // poder individual (tecla X / ,)
+  moves: {
+    projectile: { projectile: { sprite: 'assets/powers/otavioPower.png' } },
+    /* ESPECIAL (tecla C / .): chove geleia em volta do adversário (9 gotas, 4% cada). */
+    special: {
+      label: 'Chuva de Geleia', kind: 'projectile',
+      startup: 280, active: 40, recovery: 420,
+      damagePct: 4, hitstun: 200, blockstun: 120, knockback: 70, pushbackBlock: 50,
+      projectile: {
+        sprite: 'assets/powers/otavioSpecial.png', heading: true,
+        w: 52, h: 52, drawSize: 74, speed: 0, gravity: 1700, vy0: 260, shadow: true, lifetime: 2400,
+        volley: { pattern: 'rain', count: 9, spread: 240, interval: 120, fromY: -50 },
+      },
+      cost: 100,
+    },
+  },
 
   /* Animações — vazio por enquanto; veja js/game/animator.js para o formato. */
   /* ANIM:BEGIN (gerado por tools/make_basic_sprites.py — pode editar à mão) */

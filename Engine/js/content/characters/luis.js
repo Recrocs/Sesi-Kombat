@@ -22,7 +22,7 @@ SK.Characters.register({
       projectile: {
         sprite: 'assets/powers/luisSpecial.png',
         speed: 560, w: 84, h: 48, drawSize: 130, spin: 22, lifetime: 3000,
-        boomerang: { range: 550, accel: 1500 },   // distância da ida (px) e força da freada/volta
+        boomerang: { range: 430, accel: 1800 },   // distância da ida (px) e força da freada/volta
         spawn: { x: 52, y: -120 },
       },
       cost: 100,

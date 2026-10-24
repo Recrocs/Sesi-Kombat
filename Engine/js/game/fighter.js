@@ -51,7 +51,7 @@
     /* caixa de ataque atual (ou null) */
     get hitbox() {
       const m = this.move;
-      if (this.state !== 'attack' || !m || m.kind !== 'melee') return null;
+      if (this.state !== 'attack' || !m || (m.kind !== 'melee' && m.kind !== 'ride')) return null;
       if (this.movePhase !== 'active') return null;
       const hb = m.hitbox;
       return { x: this.facing > 0 ? this.x + hb.x : this.x - hb.x - hb.w, y: this.y + hb.y, w: hb.w, h: hb.h };
@@ -145,6 +145,10 @@
       if (this.moveTime >= a0 && this.moveTime < a1) {
         if (m.kind === 'projectile') {
           if (!this.moveSpawned) { this.moveSpawned = true; match.spawnProjectile(this, m); }
+        } else if (m.kind === 'ride') {
+          /* investida montado num veículo: avança direto; ao atropelar, encerra a investida */
+          this.vx = this.facing * m.ride.speed;
+          if (!this.moveHit && match.tryMeleeHit(this, m)) { this.moveHit = true; this.moveTime = a1; }
         } else if (!this.moveHit && match.tryMeleeHit(this, m)) {
           this.moveHit = true;
         }
@@ -209,7 +213,8 @@
         this.vy = 0;
       }
 
-      if (this.onGround && this.state !== 'idle' && this.state !== 'walk' && this.state !== 'crouch' && this.state !== 'jump') {
+      const riding = this.state === 'attack' && this.move && this.move.kind === 'ride' && this.movePhase === 'active';
+      if (this.onGround && !riding && this.state !== 'idle' && this.state !== 'walk' && this.state !== 'crouch' && this.state !== 'jump') {
         this.vx -= this.vx * Math.min(1, 10 * dt);          // atrito em hit / ko / block / attack
       }
 

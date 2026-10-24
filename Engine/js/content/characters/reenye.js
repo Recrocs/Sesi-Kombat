@@ -27,7 +27,17 @@ SK.Characters.register({
 
   /* Sobrescreva golpes padrão (veja js/game/moves.js) ou crie novos. Exemplo:
      moves: { attack: { damage: 9 }, special: { hitbox: { x: 20, y: -190, w: 160, h: 140 } } } */
-  moves: { projectile: { projectile: { sprite: 'assets/powers/reenyePower.png' } } },   // poder individual (tecla X / ,)
+  moves: {
+    projectile: { projectile: { sprite: 'assets/powers/reenyePower.png' } },
+    /* ESPECIAL (tecla C / .): joga uma ficha de advertência do SENAI gigante, que bate como uma parede. */
+    special: {
+      label: 'Ficha Gigante', kind: 'projectile',
+      startup: 260, active: 40, recovery: 420,
+      damagePct: 18, hitstun: 520, blockstun: 260, knockback: 420, pushbackBlock: 220,
+      projectile: { sprite: 'assets/powers/reenyeSpecial.png', speed: 360, w: 120, h: 190, drawSize: 230, lifetime: 2600, spawn: { x: 70, y: -110 } },
+      cost: 100,
+    },
+  },
 
   /* Animações — vazio por enquanto; veja js/game/animator.js para o formato. */
   /* ANIM:BEGIN (gerado por tools/make_basic_sprites.py — pode editar à mão) */

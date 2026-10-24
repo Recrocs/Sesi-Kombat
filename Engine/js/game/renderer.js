@@ -51,7 +51,9 @@
       c.clearRect(0, 0, this.W, this.H);
       this._stage(match.stage, match.time);
 
+      this._groundY = match.groundY;
       match.fighters.forEach((f) => this._shadow(f));
+      match.fighters.forEach((f) => this._ride(f));
       /* quem está atacando fica na frente */
       const order = match.fighters.slice().sort((a, b) => (a.state === 'attack') - (b.state === 'attack'));
       order.forEach((f) => this._fighter(f));
@@ -84,6 +86,36 @@
       c.restore();
     }
 
+/* ---- golpes `ride` (scooter / carro): o veículo aparece embaixo e o lutador sobe nele ---- */
+    _rideInfo(f) {
+      const m = f.move;
+      if (f.state !== 'attack' || !m || m.kind !== 'ride') return null;
+      const a1 = m.startup + m.active, t = f.moveTime;
+      const mount = Math.min(1, t / Math.max(1, m.startup));                         // 0→1 enquanto monta
+      const dismount = t > a1 ? Math.min(1, (t - a1) / Math.max(1, m.recovery * 0.7)) : 0;   // 0→1 na recuperação
+      return { mount, dismount, t };
+    }
+    _rideLift(f) {
+      const r = this._rideInfo(f); if (!r) return 0;
+      const e = (x) => x * x * (3 - 2 * x);                                           // suaviza
+      return f.move.ride.lift * e(r.mount) * (1 - e(r.dismount));
+    }
+    _ride(f) {
+      const r = this._rideInfo(f); if (!r) return;
+      const cfg = f.move.ride, img = SK.Assets.get(cfg.sprite); if (!img) return;
+      const c = this.ctx, k = cfg.drawSize / Math.max(img.width, img.height);
+      const dw = img.width * k, dh = img.height * k;
+      const srcDir = cfg.faces === 'left' ? -1 : 1;
+      const active = f.movePhase === 'active';
+      const bob = active ? Math.abs(Math.sin(r.t / 1000 * 24)) * 3 : 0;               // trepidação enquanto acelera
+      c.save();
+      c.globalAlpha = Math.min(1, r.mount * 1.6) * (1 - Math.max(0, r.dismount - 0.6) / 0.4);
+      c.translate(f.x, f.y - bob);
+      c.scale(f.facing * srcDir, 1);
+      c.drawImage(img, -dw / 2, -dh + 4, dw, dh);
+      c.restore();
+    }
+
     _fighter(f) {
       const fr = SK.Animator.frameFor(f);
       if (!fr) return;
@@ -101,7 +133,7 @@
 
       c.save();
       c.globalAlpha = pose.alpha;
-      c.translate(f.x, f.y - (pose.ko ? dw * 0.5 : 0));
+      c.translate(f.x, f.y - (pose.ko ? dw * 0.5 : 0) - this._rideLift(f));
       c.scale(flip, 1);
       if (puppet) {
         this._puppet(f, fr, rig, dw, dh, srcDir);
@@ -185,14 +217,27 @@
 
     _projectile(p) {
       const c = this.ctx;
-      const img = p.sprite && SK.Assets.get(p.sprite);
+      const path = p.currentSprite();
+      const img = path && SK.Assets.get(path);
+      /* sombra no chão (aviso do que está caindo) */
+      if (p.shadow && !p.landed && this._groundY != null) {
+        const near = SK.util.clamp(1 - (this._groundY - (p.y + p.h / 2)) / 520, 0.2, 1);
+        c.save();
+        c.fillStyle = 'rgba(0,0,0,' + (0.12 + 0.3 * near) + ')';
+        c.beginPath(); c.ellipse(p.x, this._groundY + 2, p.w * 0.55 * near, Math.max(4, p.w * 0.1 * near), 0, 0, Math.PI * 2); c.fill();
+        c.restore();
+      }
       c.save();
+      if (p.fadeOut && p.life < p.fadeOut) c.globalAlpha = Math.max(0, p.life / p.fadeOut);
       if (img) {
-        c.translate(p.x, p.y);
+        const bottom = p.anchor === 'bottom';
+        c.translate(p.x, bottom ? p.y + p.h / 2 : p.y);
         if (p.angle) c.rotate(p.angle);
+        if (p.faces && ((p.faces === 'left' && p.dir > 0) || (p.faces === 'right' && p.dir < 0))) c.scale(-1, 1);
+        if (p.scaleIn) { const s = 0.4 + 0.6 * Math.min(1, p.age / p.scaleIn); c.scale(s, s); }
         const k = p.drawSize / Math.max(img.width, img.height);   // mantém a proporção original
         const dw = img.width * k, dh = img.height * k;
-        c.drawImage(img, -dw / 2, -dh / 2, dw, dh);
+        c.drawImage(img, -dw / 2, bottom ? -dh : -dh / 2, dw, dh);
       } else {                                                    // placeholder
         const g = c.createRadialGradient(p.x, p.y, 2, p.x, p.y, p.w * 0.8);
         g.addColorStop(0, '#fff'); g.addColorStop(0.45, p.color); g.addColorStop(1, 'rgba(253,215,70,0)');
