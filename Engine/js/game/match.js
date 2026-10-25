@@ -146,6 +146,7 @@
 
     registerHit(att, def, move, result, x, y) {
       this.effects.push({ kind: result === 'blocked' ? 'block' : 'hit', x, y, t: 0, dur: 180 });
+      if (result === 'hit' && move.status && def.status) this.effects.push({ kind: 'flash', x: def.x, y: def.y - 95, t: 0, dur: 620, color: move.status.fx || '#ffffff' });
       SK.Events.emit(result === 'blocked' ? 'fight:block' : 'fight:hit', { attacker: att, defender: def, move, x, y });
     }
 

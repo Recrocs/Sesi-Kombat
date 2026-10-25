@@ -37,6 +37,7 @@
       this.state = 'idle'; this.stateTime = 0;
       this.moveKey = null; this.move = null; this.moveTime = 0; this.moveHit = false; this.moveSpawned = false;
       this.hitstun = 0; this.hitFlash = 0;
+      this.status = null; this.statusImmune = 0; this.popTime = 0;   // status: { type:'stun'|'sleep'|'bag', t, dur, ... }
       this.cooldowns = {};
       Object.keys(this.moves).forEach((k) => { this.cooldowns[k] = 0; });
       this.onGround = true;
@@ -44,7 +45,8 @@
 
     /* caixa de dano (onde o lutador pode ser atingido) */
     get hurtbox() {
-      const h = this.state === 'crouch' ? this.size.crouchH : this.size.hurtH;
+      let h = this.state === 'crouch' ? this.size.crouchH : this.size.hurtH;
+      if (this.status && this.status.type === 'bag') h = (this.status.drawH || 110) + 4;   // virou mochila: caixa menor
       return { x: this.x - this.size.hurtW / 2, y: this.y - h, w: this.size.hurtW, h };
     }
 
@@ -67,13 +69,37 @@
 
     addSpecial(n) { this.special = SK.util.clamp(this.special + (n || 0), 0, this.stats.maxSpecial); }
 
-    _set(state) { this.state = state; this.stateTime = 0; }
+    _set(state) {
+      this.state = state; this.stateTime = 0;
+      if (state === 'ko' || state === 'win') this.status = null;
+    }
+
+    /* Status que deixam o lutador sem agir por um tempo (golpe com move.status = { type, ms, sprite?, icon?, closedEyes? }) */
+    applyStatus(cfg) {
+      if (this.statusImmune > 0 || this.status || this.state === 'ko' || this.state === 'win') return false;
+      this.status = { type: cfg.type, t: cfg.ms, dur: cfg.ms, sprite: cfg.sprite, icon: cfg.icon, closedEyes: !!cfg.closedEyes, wake: !!cfg.wakeOnHit, drawH: cfg.drawH };
+      this.move = null; this.moveKey = null;
+      this.popTime = 450;
+      this._set('status');
+      return true;
+    }
+    _updateStatus(ms) {
+      const s = this.status;
+      if (!s) { this._set(this.onGround ? 'idle' : 'jump'); return; }
+      s.t -= ms;
+      if (s.t <= 0) {
+        this.status = null; this.statusImmune = 900; this.popTime = 450;     // depois de acordar, fica imune um instante (sem "prender" o jogador)
+        this._set(this.onGround ? 'idle' : 'jump');
+      }
+    }
     _setIf(state) { if (this.state !== state) this._set(state); }
 
     update(dt, match) {
       const ms = dt * 1000;
       this.stateTime += ms;
       this.hitFlash = Math.max(0, this.hitFlash - ms);
+      this.popTime = Math.max(0, this.popTime - ms);
+      this.statusImmune = Math.max(0, this.statusImmune - ms);
       for (const k in this.cooldowns) this.cooldowns[k] = Math.max(0, this.cooldowns[k] - ms);
 
       const intent = match.canAct() ? (this.controller.read(this, match, dt) || NEUTRAL) : NEUTRAL;
@@ -85,6 +111,7 @@
           this.hitstun -= ms;
           if (this.hitstun <= 0) this._set(this.onGround ? 'idle' : 'jump');
           break;
+        case 'status': this._updateStatus(ms); break;
         case 'ko':
         case 'win': break;
         default: this._updateFree(intent, opp, match);
@@ -164,7 +191,7 @@
       const ax = fromX !== undefined ? fromX : attacker.x;
       const away = (this.x - ax) >= 0 ? 1 : -1;
       const inFront = (ax - this.x) * this.facing > 0;
-      const blocking = this.state === 'block' && inFront && this.onGround;
+      const blocking = !move.unblockable && this.state === 'block' && inFront && this.onGround;
 
       /* `damagePct` = dano em % da vida máxima de quem apanha (ex.: 15 → tira 15% da barra); senão usa `damage` fixo */
       const base = move.damagePct != null ? this.stats.maxHp * move.damagePct / 100 : (move.damage || 0);
@@ -187,10 +214,16 @@
       this.vx = away * (move.knockback != null ? move.knockback : 150);
 
       if (this.hp <= 0) {
+        this.status = null;
         this._set('ko');
         this.onGround = false; this.vy = -340; this.vx = away * 260;
         SK.Events.emit('fight:ko', { fighter: this });
+      } else if (move.status && this.applyStatus(move.status)) {
+        this.vx = away * (move.knockback != null ? move.knockback : 0) * 0.4;        // entrou no status (atordoado / dormindo / mochila)
+      } else if (this.state === 'status' && this.status && !this.status.wake) {
+        this.vx = away * (move.knockback != null ? move.knockback : 0) * 0.3;        // já está dormindo/atordoado: leva o dano e continua assim
       } else {
+        if (this.status) this.status = null;
         this._set('hit');
         this.hitstun = move.hitstun != null ? move.hitstun : 250;
       }

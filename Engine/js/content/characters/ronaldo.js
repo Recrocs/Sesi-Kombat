@@ -15,6 +15,7 @@ SK.Characters.register({
     portrait: 'assets/characters/ronaldo/portrait.png',   // busto (cards e versus)
     portraitHi: 'assets/characters/ronaldo/portrait1.png',  // busto grande (tela de VERSUS)
     idle: 'assets/characters/ronaldo/idle.png',           // corpo inteiro: menus + pose padrão na luta
+    sleep: 'assets/characters/ronaldo/sleep.png',          // olhos fechados (quando dorme)
   },
   facing: 'left',                 // para onde o sprite ORIGINAL olha no PNG ('right' | 'left') — detectado: todos olham p/ a ESQUERDA
 
@@ -26,7 +27,22 @@ SK.Characters.register({
 
   /* Sobrescreva golpes padrão (veja js/game/moves.js) ou crie novos. Exemplo:
      moves: { attack: { damage: 9 }, special: { hitbox: { x: 20, y: -190, w: 160, h: 140 } } } */
-  moves: { projectile: { projectile: { sprite: 'assets/powers/ronaldoPower.png' } } },   // poder individual (tecla X / ,)
+  moves: {
+    projectile: { projectile: { sprite: 'assets/powers/ronaldoPower.png' } },
+    /* ESPECIAL (tecla C / .): um bombom Sonho de Valsa gigante cai do céu em cima de onde o adversário estava (a sombra avisa). */
+    special: {
+      label: 'Sonho de Valsa Gigante', kind: 'projectile',
+      startup: 300, active: 40, recovery: 450,
+      damagePct: 20, hitstun: 560, blockstun: 260, knockback: 280, pushbackBlock: 170,
+      projectile: {
+        sprite: 'assets/powers/ronaldoSpecial.png', anchor: 'bottom',
+        w: 210, h: 105, drawSize: 250, speed: 0, gravity: 2600, vy0: 0, shadow: true,
+        lifetime: 2600, landStay: 700, dieOnHit: false,
+        volley: { pattern: 'dropOnTarget', fromY: -140 },
+      },
+      cost: 100,
+    },
+  },
 
   /* Animações — vazio por enquanto; veja js/game/animator.js para o formato. */
   /* ANIM:BEGIN (gerado por tools/make_basic_sprites.py — pode editar à mão) */

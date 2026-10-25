@@ -16,6 +16,7 @@ SK.Characters.register({
     portraitHi: 'assets/characters/pereira/portrait1.png',  // busto grande (tela de VERSUS)
     icon: 'assets/characters/pereira/icon.png',             // cartão da seleção (se não existir, usa portrait)
     idle: 'assets/characters/pereira/idle.png',           // corpo inteiro: menus + pose padrão na luta
+    sleep: 'assets/characters/pereira/sleep.png',          // olhos fechados (quando dorme)
   },
   facing: 'left',                 // para onde o sprite ORIGINAL olha no PNG ('right' | 'left') — detectado: todos olham p/ a ESQUERDA
 
@@ -27,7 +28,19 @@ SK.Characters.register({
 
   /* Sobrescreva golpes padrão (veja js/game/moves.js) ou crie novos. Exemplo:
      moves: { attack: { damage: 9 }, special: { hitbox: { x: 20, y: -190, w: 160, h: 140 } } } */
-  moves: { projectile: { projectile: { sprite: 'assets/powers/pereiraPower.png' } } },   // poder individual (tecla X / ,)
+  moves: {
+    projectile: { projectile: { sprite: 'assets/powers/pereiraPower.png' } },
+    /* ESPECIAL (tecla C / .): põe a mão no bolso, encara o adversário e, num brilho, transforma ele em MOCHILA por 3,5 s.
+       Alcance longo, não dá para bloquear; dá para escapar ficando longe ou acertando o Pereira durante a pose (520 ms). */
+    special: {
+      label: 'Olhar da Mochila', kind: 'melee', gaze: true, unblockable: true,
+      startup: 520, active: 70, recovery: 460,
+      damagePct: 0, hitstun: 0, blockstun: 0, knockback: 0,
+      hitbox: { x: 30, y: -200, w: 470, h: 200 },
+      status: { type: 'bag', ms: 3500, sprite: 'assets/powers/pereiraBag.png', drawH: 112, fx: '#fff1a8' },
+      cost: 100,
+    },
+  },
 
   /* Animações — vazio por enquanto; veja js/game/animator.js para o formato. */
   /* ANIM:BEGIN (gerado por tools/make_basic_sprites.py — pode editar à mão) */

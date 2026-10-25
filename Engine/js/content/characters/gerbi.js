@@ -7,6 +7,7 @@ SK.Characters.register({
     portrait: 'assets/characters/gerbi/portrait.png',
     portraitHi: 'assets/characters/gerbi/portrait1.png',  // busto grande (tela de VERSUS)
     idle: 'assets/characters/gerbi/idle.png',
+    sleep: 'assets/characters/gerbi/sleep.png',          // olhos fechados (quando dorme)
   },
   facing: 'left',                 // para onde o sprite ORIGINAL olha no PNG ('right' | 'left') — detectado: todos olham p/ a ESQUERDA
   size: { spriteHeight: 200, hurtW: 64, hurtH: 172, crouchH: 112 },

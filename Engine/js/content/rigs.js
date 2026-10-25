@@ -25,6 +25,10 @@ SK.Rigs = {
     "hipY": 0.571,
     "splitX": 0.506
   },
+  "leandro": {
+    "hipY": 0.606,
+    "splitX": 0.533
+  },
   "luis": {
     "hipY": 0.59,
     "splitX": 0.543
@@ -37,6 +41,10 @@ SK.Rigs = {
     "hipY": 0.596,
     "splitX": 0.516
   },
+  "pereira": {
+    "hipY": 0.562,
+    "splitX": 0.523
+  },
   "reenye": {
     "hipY": 0.656,
     "splitX": 0.515
@@ -45,8 +53,16 @@ SK.Rigs = {
     "hipY": 0.606,
     "splitX": 0.512
   },
+  "ronaldo": {
+    "hipY": 0.609,
+    "splitX": 0.497
+  },
   "vicenzo": {
     "hipY": 0.602,
     "splitX": 0.508
+  },
+  "welli": {
+    "hipY": 0.558,
+    "splitX": 0.542
   }
 };

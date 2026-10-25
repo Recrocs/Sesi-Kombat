@@ -16,6 +16,7 @@ SK.Characters.register({
     portraitHi: 'assets/characters/chico/portrait1.png',  // busto grande (tela de VERSUS)
     icon: 'assets/characters/chico/icon.png',             // cartão da seleção (se não existir, usa portrait)
     idle: 'assets/characters/chico/idle.png',           // corpo inteiro: menus + pose padrão na luta
+    sleep: 'assets/characters/chico/sleep.png',          // olhos fechados (quando dorme)
   },
   facing: 'left',                 // para onde o sprite ORIGINAL olha no PNG ('right' | 'left') — detectado: todos olham p/ a ESQUERDA
 
@@ -27,7 +28,25 @@ SK.Characters.register({
 
   /* Sobrescreva golpes padrão (veja js/game/moves.js) ou crie novos. Exemplo:
      moves: { attack: { damage: 9 }, special: { hitbox: { x: 20, y: -190, w: 160, h: 140 } } } */
-  moves: { projectile: { projectile: { sprite: 'assets/powers/chicoPower.png' } } },   // poder individual (tecla X / ,)
+  moves: {
+    projectile: { projectile: { sprite: 'assets/powers/chicoPower.png' } },
+    /* ESPECIAL (tecla C / .): lança X, quadrado e bolinha; quem for atingido fica ATORDOADO por 3 s, rindo sem parar (bloqueando não pega). */
+    special: {
+      label: 'X, Quadrado e Bolinha', kind: 'projectile',
+      startup: 280, active: 40, recovery: 420,
+      damagePct: 4, hitstun: 200, blockstun: 140, knockback: 60, pushbackBlock: 60,
+      status: { type: 'stun', ms: 3000, fx: '#ffd94a' },
+      projectile: {
+        sprite: 'assets/powers/chicoX.png', speed: 430, w: 60, h: 60, drawSize: 84, spin: 9, lifetime: 2200, spawn: { x: 55, y: -130 },
+        volley: { pattern: 'fan', items: [
+          { sprite: 'assets/powers/chicoX.png', y: -110, delay: 0 },
+          { sprite: 'assets/powers/chicoSquare.png', y: -150, delay: 170 },
+          { sprite: 'assets/powers/chicoCircle.png', y: -120, delay: 340 },
+        ] },
+      },
+      cost: 100,
+    },
+  },
 
   /* Animações — vazio por enquanto; veja js/game/animator.js para o formato. */
   /* ANIM:BEGIN (gerado por tools/make_basic_sprites.py — pode editar à mão) */

@@ -16,6 +16,7 @@ SK.Characters.register({
     portraitHi: 'assets/characters/otavio/portrait1.png',  // busto grande (tela de VERSUS)
     icon: 'assets/characters/otavio/icon.png',             // cartão da seleção (se não existir, usa portrait)
     idle: 'assets/characters/otavio/idle.png',           // corpo inteiro: menus + pose padrão na luta
+    sleep: 'assets/characters/otavio/sleep.png',          // olhos fechados (quando dorme)
   },
   facing: 'left',                 // para onde o sprite ORIGINAL olha no PNG ('right' | 'left') — detectado: todos olham p/ a ESQUERDA
 

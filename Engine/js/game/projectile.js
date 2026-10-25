@@ -15,6 +15,7 @@
      scaleIn, fadeOut ms de crescimento no início / de desaparecer no fim
      maxHits, hitInterval, dieOnHit   acerta várias vezes (ex.: fumaça); dieOnHit:false = fica depois do último acerto
      dir, x, y        sobrescrevem direção / posição inicial (usado pelas "volleys")
+     harmless         não acerta ninguém (isca)      goalX   some ao chegar nesse x      bob   { amp, freq } pulinhos ao correr
      volley           { pattern, ... } dispara vários projéteis de uma vez (veja volleys.js)
    ========================================================================== */
 (function () {
@@ -53,6 +54,9 @@
       this.maxHits = cfg.maxHits || 1;
       this.hitInterval = cfg.hitInterval || 0;
       this.dieOnHit = cfg.dieOnHit !== false;
+      this.harmless = !!cfg.harmless;       // só enfeite/isca: não acerta ninguém (ex.: a rosquinha do Italo)
+      this.goalX = cfg.goalX;               // some ao chegar nesse x (ex.: o cachorro pegando a rosquinha)
+      this.bob = cfg.bob || null;           // { amp, freq } — pulinhos do sprite ao correr
       this.hits = 0; this.hitCd = 0;
       /* bumerangue: vai até `range` px, freia, e volta até o dono */
       this.boom = cfg.boomerang ? { range: cfg.boomerang.range, accel: cfg.boomerang.accel || 1800, speed: cfg.speed, phase: 'out', x0: this.x } : null;
@@ -101,12 +105,13 @@
       if (this.heading && (this.vx || this.vy) && !this.landed) this.angle = Math.atan2(this.vy, this.vx);
       else this.angle += this.spin * this.dir * dt;
 
+      if (this.goalX != null && (this.x - this.goalX) * this.dir >= 0) this.dead = true;
       this.life -= ms;
       if (this.life <= 0 || this.x < -60 || this.x > SK.config.width + 60) this.dead = true;
       if (this.dead) return;
 
       const target = match.opponentOf(this.owner);
-      if (target.state !== 'ko' && this.hits < this.maxHits && this.hitCd <= 0 && match.overlap(this.rect, target.hurtbox)) {
+      if (!this.harmless && target.state !== 'ko' && this.hits < this.maxHits && this.hitCd <= 0 && match.overlap(this.rect, target.hurtbox)) {
         const res = target.receiveHit(this.owner, this.move, match, this.x);
         this.owner.addSpecial(this.move.meterGain || 0);
         match.registerHit(this.owner, target, this.move, res, this.x, this.y);

@@ -30,12 +30,17 @@
 
     SK.Characters.all().forEach((c) => {
       const s = c.sprites || {};
-      add(s.portrait); add(s.portraitHi); add(s.icon); add(s.idle);
+      add(s.portrait); add(s.portraitHi); add(s.icon); add(s.idle); add(s.sleep);
       Object.values(c.animations || {}).forEach((a) => add(a.src));
       Object.values(c.moves || {}).forEach((m) => {
         if (!m) return;
-        if (m.projectile) { add(m.projectile.sprite); (m.projectile.sprites || []).forEach(add); }
+        if (m.projectile) {
+          const pr = m.projectile, vo = pr.volley || {};
+          add(pr.sprite); (pr.sprites || []).forEach(add);
+          (vo.items || []).forEach((it) => add(it.sprite)); if (vo.dog) add(vo.dog.sprite);     // sprites usados só dentro de volleys
+        }
         if (m.ride) add(m.ride.sprite);
+        if (m.status) { add(m.status.sprite); add(m.status.icon); }
       });
     });
     SK.Stages.all().forEach((st) => {

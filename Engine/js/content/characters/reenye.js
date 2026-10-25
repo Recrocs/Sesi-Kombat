@@ -16,6 +16,7 @@ SK.Characters.register({
     portraitHi: 'assets/characters/reenye/portrait1.png',  // busto grande (tela de VERSUS)
     icon: 'assets/characters/reenye/icon.png',             // cartão da seleção (se não existir, usa portrait)
     idle: 'assets/characters/reenye/idle.png',           // corpo inteiro: menus + pose padrão na luta
+    sleep: 'assets/characters/reenye/sleep.png',          // olhos fechados (quando dorme)
   },
   facing: 'left',                 // para onde o sprite ORIGINAL olha no PNG ('right' | 'left') — detectado: todos olham p/ a ESQUERDA
 
