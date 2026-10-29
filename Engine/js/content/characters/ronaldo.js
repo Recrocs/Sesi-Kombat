@@ -37,8 +37,13 @@ SK.Characters.register({
       projectile: {
         sprite: 'assets/powers/ronaldoSpecial.png', anchor: 'bottom',
         w: 210, h: 105, drawSize: 250, speed: 0, gravity: 2600, vy0: 0, shadow: true,
-        lifetime: 2600, landStay: 700, dieOnHit: false,
+        lifetime: 2600, landStay: 700, dieOnHit: false, glow: '#ff7ab8', landFx: { kind: 'impact', color: '#e8c0d0', shake: 9 },
         volley: { pattern: 'dropOnTarget', fromY: -140 },
+      },
+      anim: {   // ergue o bombom gigante com os braços para o alto: coluna rosa e confeitos brilhando
+        charge: { oy: -10, tRot: -0.36, rot: -0.12, tSY: 1.08, sy: 1.04, ox: -6, wobble: { ox: [1.5, 14] } },
+        strike: { oy: -2, tRot: 0.3, rot: 0.12, sy: 0.96, ox: 10 },
+        fx: { charge: [{ kind: 'beam', color: '#ff7ab8', color2: '#ffffff' }, { kind: 'candy', color: '#ff4f9a', color2: '#ffd94a', n: 16 }], release: { kind: 'ring', color: '#ff9ad0', origin: 'feet', r: 150, shake: 3 } },
       },
       cost: 100,
     },

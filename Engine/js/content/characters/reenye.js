@@ -35,7 +35,12 @@ SK.Characters.register({
       label: 'Ficha Gigante', kind: 'projectile',
       startup: 260, active: 40, recovery: 420,
       damagePct: 18, hitstun: 520, blockstun: 260, knockback: 420, pushbackBlock: 220,
-      projectile: { sprite: 'assets/powers/reenyeSpecial.png', speed: 360, w: 120, h: 190, drawSize: 230, lifetime: 2600, spawn: { x: 70, y: -110 } },
+      projectile: { sprite: 'assets/powers/reenyeSpecial.png', speed: 360, w: 120, h: 190, drawSize: 230, shed: { color: '#f4f1e8', n: 8 }, ghost: 3, lifetime: 2600, spawn: { x: 70, y: -110 } },
+      anim: {   // joga a ficha com os dois braços: estufa o peito e empurra com força
+        charge: { rot: -0.1, tRot: -0.35, oy: -4, sy: 1.04, tSY: 1.05, ox: -8 },
+        strike: { rot: 0.18, tRot: 0.5, ox: 24, sy: 0.96 },
+        fx: { charge: { kind: 'papers', n: 9 }, release: { kind: 'ring', color: '#ffd94a', r: 150, shake: 3 } },
+      },
       cost: 100,
     },
   },

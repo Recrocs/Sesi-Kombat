@@ -49,6 +49,7 @@
       case 'attack': {                                 // preparação (recua/encolhe) → golpe (lança o corpo) → recuperação
         const m = f.move; if (!m) break;
         const t = f.moveTime, a0 = m.startup, a1 = m.startup + m.active, end = a1 + m.recovery;
+        if (m.anim) { const q = SK.SpecialFX.pose(m.anim, t, a0, a1, end); Object.assign(p, q.p); rate = q.rate; break; }   // coreografia própria do especial
         const power = f.moveKey === 'special' ? 1.45 : f.moveKey === 'projectile' ? 0.9 : 1;
         if (m.gaze) {                                  // mão no bolso, olhar fixo: tronco relaxado e depois inclina para encarar
           const u = Math.min(1, t / a0);
@@ -124,6 +125,10 @@
       this._stage(match.stage, match.time);
 
       this._groundY = match.groundY;
+      /* tremor de tela (só os personagens e efeitos; o cenário fica parado): especiais fortes e impactos no chão */
+      let sh = 0; match.fighters.forEach((f) => { sh = Math.max(sh, SK.SpecialFX.shakeOf(f)); });
+      match.effects.forEach((e) => { if (e.shake) sh = Math.max(sh, e.shake * Math.pow(1 - e.t / e.dur, 2)); });
+      c.save(); if (sh > 0.2) c.translate(Math.sin(T * 93) * sh, Math.cos(T * 71) * sh * 0.6);
       match.fighters.forEach((f) => this._shadow(f));
       match.fighters.forEach((f) => this._ride(f));
       /* quem está atacando fica na frente */
@@ -132,6 +137,7 @@
       match.projectiles.forEach((p) => this._projectile(p));
       match.fighters.forEach((f) => this._overlay(f));
       match.effects.forEach((e) => this._effect(e));
+      c.restore();
       if (SK.debug.hitboxes) this._debug(match);
     }
 
@@ -188,6 +194,7 @@
       c.scale(f.facing * srcDir, 1);
       c.drawImage(img, -dw / 2, -dh + 4, dw, dh);
       c.restore();
+      SK.SpecialFX.rideFx(c, f, active, this._T);                                      // poeira e linhas de velocidade
     }
 
     /* suaviza a pose do lutador até a pose-alvo do estado atual (1 vez por quadro) */
@@ -244,7 +251,7 @@
       const puppet = !!rig && f.state !== 'ko';
       const land = V.land || 0;
 
-      this._aura(f);
+      this._specialFx(f, false);
       this._withTint(this._tintFor(f), () => {
         const c = this.ctx;
         c.save();
@@ -260,9 +267,20 @@
         c.restore();
       });
 
+      this._specialFx(f, true);
       /* soco: rastro de ar na frente do lutador durante a janela de acerto */
       const hb = f.hitbox;
       if (hb && f.move && f.move.kind === 'melee') f.move.gaze ? this._gaze(f, hb) : this._swoosh(f, hb);
+    }
+
+    /* brilhos e partículas do especial (anim.fx); sem `anim`, usa o halo genérico */
+    _specialFx(f, front) {
+      const m = f.move; if (f.state !== 'attack' || !m) return;
+      if (!m.anim) { if (!front) this._aura(f); return; }
+      const fx = m.anim.fx || {}, c = this.ctx, FX = SK.SpecialFX, t = f.moveTime, a0 = m.startup, a1 = a0 + m.active;
+      if (t < a0 && fx.charge) FX.emit(c, f, fx.charge, ease.out(t / Math.max(1, a0)), this._T, front);
+      if (t >= a0 && t < a1 + 160 && fx.active) FX.emit(c, f, fx.active, 1, this._T, front);
+      if (front && t >= a0 && t < a0 + 340 && fx.release) FX.release(c, f, fx.release, (t - a0) / 340, this._T);
     }
 
     /* halo de energia carregando o especial */
@@ -414,12 +432,16 @@
       c.restore();
     }
 
-    _projectile(p) {
+    _projectile(p, gh) {
       const c = this.ctx;
+      if (!gh) {                                                  // rastro (cópias esmaecidas atrás) + brilho/poeira/papéis
+        SK.SpecialFX.projBack(c, p, this._T, this._groundY);
+        for (let i = p.ghost; i >= 1; i--) this._projectile(p, { dx: -p.vx * 0.02 * i, dy: -p.vy * 0.02 * i, a: 0.34 * (1 - i / (p.ghost + 1)) });
+      }
       const path = p.currentSprite();
       const img = path && SK.Assets.get(path);
       /* sombra no chão (aviso do que está caindo) */
-      if (p.shadow && !p.landed && this._groundY != null) {
+      if (!gh && p.shadow && !p.landed && this._groundY != null) {
         const near = SK.util.clamp(1 - (this._groundY - (p.y + p.h / 2)) / 520, 0.2, 1);
         c.save();
         c.fillStyle = 'rgba(0,0,0,' + (0.12 + 0.3 * near) + ')';
@@ -428,6 +450,7 @@
       }
       c.save();
       if (p.fadeOut && p.life < p.fadeOut) c.globalAlpha = Math.max(0, p.life / p.fadeOut);
+      if (gh) { c.globalAlpha *= gh.a; c.translate(gh.dx, gh.dy); }
       if (img) {
         const bottom = p.anchor === 'bottom';
         const bw = p.bob ? Math.sin(p.age / 1000 * p.bob.freq) : 0;
@@ -451,6 +474,7 @@
     _effect(e) {
       const c = this.ctx;
       const k = e.t / e.dur;
+      if (e.kind === 'impact') { SK.SpecialFX.impact(c, e, this._T); return; }
       if (e.kind === 'flash') {                                   // clarão + estrelinhas (status aplicado)
         c.save(); c.globalCompositeOperation = 'lighter';
         const r = 24 + 110 * ease.out(k), g = c.createRadialGradient(e.x, e.y, 2, e.x, e.y, r);

@@ -22,9 +22,14 @@ SK.Characters.register({
       damagePct: 3, hitstun: 260, blockstun: 140, knockback: 90, pushbackBlock: 70,
       projectile: {
         sprites: ['assets/powers/kaiqueSpecial1.png', 'assets/powers/kaiqueSpecial2.png', 'assets/powers/kaiqueSpecial3.png', 'assets/powers/kaiqueSpecial4.png'],
-        fps: 14, faces: 'right', anchor: 'bottom',
+        fps: 14, faces: 'right', anchor: 'bottom', dust: true,
         w: 54, h: 90, drawSize: 100, speed: 330, lifetime: 3500,
         volley: { pattern: 'sides', count: 6, interval: 170, offset: 40 },
+      },
+      anim: {   // agacha e abre um círculo de invocação no chão; levanta quando os davizinhos saem
+        charge: { sy: 0.9, tSY: 0.97, tRot: 0.15, rot: 0.05, stance: 0.2, wobble: { ox: [2, 12] } },
+        strike: { sy: 1.06, tSY: 1.04, tRot: 0.2, ox: 10, oy: -4 },
+        fx: { charge: { kind: 'groundring', color: '#7fe3ff', color2: '#ffffff' }, release: { kind: 'ring', color: '#bff3ff', origin: 'feet', r: 150 } },
       },
       cost: 100,
     },

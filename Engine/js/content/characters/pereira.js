@@ -38,6 +38,11 @@ SK.Characters.register({
       damagePct: 0, hitstun: 0, blockstun: 0, knockback: 0,
       hitbox: { x: 30, y: -200, w: 470, h: 200 },
       status: { type: 'bag', ms: 3500, sprite: 'assets/powers/pereiraBag.png', drawH: 112, fx: '#fff1a8' },
+      anim: {   // calmo, com a mão no bolso: o olhar brilha crescendo até o disparo
+        charge: { tRot: -0.1, rot: -0.04, ox: -3 },
+        strike: { tRot: 0.2 },
+        fx: { charge: [{ kind: 'glint', color: '#fff1a8' }, { kind: 'sparks', color: '#fff1a8', n: 8 }], release: { kind: 'ring', color: '#fff1a8', origin: 'head', r: 140 } },
+      },
       cost: 100,
     },
   },

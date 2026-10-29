@@ -110,8 +110,14 @@
 .ss__label   { left: 170px; top: 104px; width: 316px; height: 38px; font-size: 20px; }
 .ss__name    { left: 90px; top: 436px; width: 476px; height: 46px; font-size: 26px; }
 .ss__sub     { left: 30px; width: 596px; top: 494px; text-align: center; font-size: 11px; letter-spacing: 1px; color: var(--c-blue); text-shadow: 0 2px 0 #000; }
-.ss__list    { left: 656px; top: 98px; width: 270px; display: flex; flex-direction: column; gap: 9px; }
-.ss__item    { height: 33px; font-size: 13px; }
+.ss__list    { left: 650px; top: 94px; width: 284px; display: flex; flex-direction: column; gap: 9px;
+               /* a lista ROLA quando há mais cenários do que cabem (não passa por trás do botão "COMEÇAR A TRETA") */
+               max-height: 338px; overflow-y: auto; overflow-x: hidden; padding: 4px 8px 4px 6px; box-sizing: border-box;
+               scrollbar-width: thin; scrollbar-color: var(--c-yellow) rgba(0, 0, 0, .45); overscroll-behavior: contain; }
+.ss__list::-webkit-scrollbar       { width: 6px; }
+.ss__list::-webkit-scrollbar-track { background: rgba(0, 0, 0, .45); border-radius: 3px; }
+.ss__list::-webkit-scrollbar-thumb { background: var(--c-yellow); border-radius: 3px; }
+.ss__item    { height: 33px; font-size: 13px; flex: 0 0 auto; }
 .ss__go      { left: 652px; top: 440px; width: 278px; height: 48px; font-size: 17px; gap: 12px; }
 .ss__go kbd  { font-family: inherit; font-size: 10px; padding: 3px 7px; background: #f1ece0; color: var(--c-ink); box-shadow: 0 2px 0 #7a6a4a; text-shadow: none; }
 .ss__hint    { left: 640px; width: 300px; top: 506px; text-align: center; font-size: 10.5px; letter-spacing: 1px; text-shadow: 0 2px 0 #000; }

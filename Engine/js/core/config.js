@@ -18,7 +18,7 @@ SK.config = {
 
   /* ---- Interface ---------------------------------------------------------- */
   ui: {
-    menuBackground: 'assets/stages/society/background.jpg',   // fundo dos menus (troque por uma arte de mapa depois)
+    menuBackground: 'assets/ui/menu_background.jpg',   // fundo dos menus (gerado por tools/make_menu_bg.py; troque aqui para outra arte)
     logoImage: null,                     // ex.: 'assets/ui/logo.png' — se definido, substitui o logo em texto
     vsImage: null,                       // ex.: 'assets/ui/vs.png'
     rosterSlots: 12,                     // total de casas na grade de personagens (as vazias viram "???")

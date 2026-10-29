@@ -21,12 +21,17 @@ SK.Characters.register({
       startup: 260, active: 40, recovery: 420,
       damagePct: 14, hitstun: 420, blockstun: 220, knockback: 360, pushbackBlock: 160,
       projectile: {
-        sprite: 'assets/powers/italoSpecial.png', harmless: true, spin: 12,
+        sprite: 'assets/powers/italoSpecial.png', harmless: true, spin: 12, glow: '#ffb64a', ghost: 3,
         w: 40, h: 40, drawSize: 58, gravity: 1500, lifetime: 3000, spawn: { x: 40, y: -150 },
         volley: {
           pattern: 'fetch', distance: 600, flight: 650, dogDelay: 280,
-          dog: { sprite: 'assets/powers/italoDog.png', faces: 'right', anchor: 'bottom', w: 100, h: 64, drawSize: 150, speed: 640, bob: { amp: 5, freq: 24 } },
+          dog: { sprite: 'assets/powers/italoDog.png', dust: true, faces: 'right', anchor: 'bottom', w: 100, h: 64, drawSize: 150, speed: 640, bob: { amp: 5, freq: 24 } },
         },
+      },
+      anim: {   // arremesso de arremessador de beisebol: recua o corpo todo e solta com força
+        charge: { rot: -0.22, tRot: -0.5, ox: -16, sy: 0.95, stance: 0.24, oy: -3 },
+        strike: { rot: 0.28, tRot: 0.62, ox: 30, sx: 1.05, sy: 0.97, stance: 0.3 },
+        fx: { charge: { kind: 'sparks', color: '#ffb64a', n: 10 }, release: { kind: 'ring', color: '#ffe0a0', r: 130, shake: 1 } },
       },
       cost: 100,
     },

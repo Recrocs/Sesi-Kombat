@@ -22,6 +22,11 @@ SK.Characters.register({
       damagePct: 20, hitstun: 600, blockstun: 260, knockback: 560, pushbackBlock: 280,
       hitbox: { x: -20, y: -95, w: 160, h: 95 },
       ride: { sprite: 'assets/powers/robsonSpecial.png', faces: 'left', drawSize: 250, lift: 82, speed: 720 },
+      anim: {   // em cima do Escort, motor roncando antes de arrancar
+        charge: { sy: 0.97, tRot: 0.1, wobble: { oy: [1.2, 22] } },
+        strike: { tRot: 0.14, rot: 0.08, ox: 4 },
+        fx: { charge: { kind: 'dust', color: '#d9d2c4', n: 9 }, release: { kind: 'ring', color: '#ffffff', origin: 'feet', r: 120, shake: 3 } },
+      },
       cost: 100,
     },
   },

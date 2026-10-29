@@ -25,6 +25,11 @@ SK.Characters.register({
         speed: 230, w: 220, h: 130, drawSize: 280, lifetime: 2300, spawn: { x: 40, y: -150 },
         maxHits: 4, hitInterval: 420, scaleIn: 380, fadeOut: 500,
       },
+      anim: {   // puxa o ar (peito estufa) e sopra a fumaça de uma vez
+        charge: { tSY: 1.1, sy: 1.03, tRot: -0.18, rot: -0.06, ox: -4 },
+        strike: { tSY: 0.94, tRot: 0.38, rot: 0.14, ox: 14, sy: 0.97 },
+        fx: { charge: { kind: 'smoke', in: true, n: 7 }, active: { kind: 'smoke', n: 9 }, release: { kind: 'ring', color: '#d5dade', origin: 'head', r: 90 } },
+      },
       cost: 100,
     },
   },

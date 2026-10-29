@@ -23,8 +23,13 @@ SK.Characters.register({
       projectile: {
         sprite: 'assets/powers/welliSpecial.png', anchor: 'bottom',
         w: 190, h: 130, drawSize: 215, speed: 0, gravity: 2600, vy0: 0, shadow: true,
-        lifetime: 2600, landStay: 700, dieOnHit: false,
+        lifetime: 2600, landStay: 700, dieOnHit: false, landFx: { kind: 'impact', color: '#d9c7a6', shake: 8 },
         volley: { pattern: 'dropOnTarget', fromY: -170 },
+      },
+      anim: {   // levanta o braço chamando a Kombi: coluna de luz subindo para o céu
+        charge: { oy: -6, tRot: -0.32, rot: -0.1, tSY: 1.05, sy: 1.03, ox: -4 },
+        strike: { oy: -2, tRot: 0.18, rot: 0.08, sy: 0.96, ox: 8 },
+        fx: { charge: { kind: 'beam', color: '#8ad0ff', color2: '#ffffff' }, release: { kind: 'ring', color: '#ffffff', origin: 'feet', r: 130, shake: 2 } },
       },
       cost: 100,
     },

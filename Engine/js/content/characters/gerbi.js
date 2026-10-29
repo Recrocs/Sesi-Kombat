@@ -22,7 +22,12 @@ SK.Characters.register({
       projectile: {
         sprite: 'assets/powers/gerbiSpecial.png', faces: 'right',
         speed: 330, w: 240, h: 120, drawSize: 280, lifetime: 2600, spawn: { x: 60, y: -135 },
-        wave: { amp: 22, freq: 6 }, maxHits: 3, hitInterval: 300,
+        wave: { amp: 22, freq: 6 }, glow: '#ffd94a', maxHits: 3, hitInterval: 300,
+      },
+      anim: {   // canta: peito aberto, balançando no ritmo, notas saindo
+        charge: { tRot: -0.22, tSY: 1.07, sy: 1.02, wobble: { rot: [0.06, 2.6], ox: [4, 2.6] } },
+        strike: { tRot: -0.28, tSY: 1.08, rot: -0.05, ox: 6, wobble: { rot: [0.05, 5] } },
+        fx: { charge: { kind: 'notes', color: '#ffd94a', n: 7 }, active: { kind: 'notes', color: '#ff9ad9', n: 9 } },
       },
       cost: 100,
     },

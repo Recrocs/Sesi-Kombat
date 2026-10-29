@@ -15,6 +15,7 @@
      scaleIn, fadeOut ms de crescimento no início / de desaparecer no fim
      maxHits, hitInterval, dieOnHit   acerta várias vezes (ex.: fumaça); dieOnHit:false = fica depois do último acerto
      dir, x, y        sobrescrevem direção / posição inicial (usado pelas "volleys")
+     glow, ghost, shed, dust, landFx   visuais extras (veja specialfx.js)
      harmless         não acerta ninguém (isca)      goalX   some ao chegar nesse x      bob   { amp, freq } pulinhos ao correr
      volley           { pattern, ... } dispara vários projéteis de uma vez (veja volleys.js)
    ========================================================================== */
@@ -54,6 +55,7 @@
       this.maxHits = cfg.maxHits || 1;
       this.hitInterval = cfg.hitInterval || 0;
       this.dieOnHit = cfg.dieOnHit !== false;
+      this.glow = cfg.glow || null; this.ghost = cfg.ghost || 0; this.shed = cfg.shed || null; this.dust = !!cfg.dust; this.landFx = cfg.landFx || null;   // visuais (specialfx.js)
       this.harmless = !!cfg.harmless;       // só enfeite/isca: não acerta ninguém (ex.: a rosquinha do Italo)
       this.goalX = cfg.goalX;               // some ao chegar nesse x (ex.: o cachorro pegando a rosquinha)
       this.bob = cfg.bob || null;           // { amp, freq } — pulinhos do sprite ao correr
@@ -95,6 +97,7 @@
         this.y0 += this.vy * dt;
         this.y = this.y0 + (this.wave ? this.wave.amp * Math.sin(this.age / 1000 * this.wave.freq) : 0);
         if ((this.gravity || this.vy > 0) && this.y0 + this.h / 2 >= match.groundY) {   // tocou o chão
+          if (this.landFx) match.effects.push({ kind: 'impact', fx: this.landFx.kind, x: this.x, y: match.groundY, t: 0, dur: 560, color: this.landFx.color, shake: this.landFx.shake || 0, w: this.w });
           if (this.landStay != null) {
             this.landed = true; this.vx = 0; this.vy = 0;
             this.y0 = this.y = match.groundY - this.h / 2;

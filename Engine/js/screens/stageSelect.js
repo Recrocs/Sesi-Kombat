@@ -58,12 +58,17 @@ SK.Screens.register('stageSelect', function () {
       el.querySelector('.ss__go').addEventListener('click', start);
       const items = Array.from(el.querySelectorAll('.ss__item'));
       const startIdx = Math.max(0, stages.findIndex((s) => s.id === S.stage));
+      /* mantém o cenário selecionado sempre visível dentro da lista que rola */
+      const reveal = (i) => { const it = items[i], list = it && it.parentElement; if (!list) return;
+        const top = it.offsetTop - 4, bottom = it.offsetTop + it.offsetHeight + 4;
+        if (top < list.scrollTop) list.scrollTop = top; else if (bottom > list.scrollTop + list.clientHeight) list.scrollTop = bottom - list.clientHeight; };
       nav = new SK.UI.NavList(items, {
         start: startIdx,
-        onChange: (i) => { if (root) preview(i); },
+        onChange: (i) => { if (root) { preview(i); reveal(i); } },
         onActivate: () => start(),
       });
       preview(nav.index);
+      reveal(nav.index);
     },
     onKey(key) {
       if (key === 'back') { SK.Events.emit('ui:back'); SK.Screens.go('characterSelect'); return true; }

@@ -23,8 +23,13 @@ SK.Characters.register({
       projectile: {
         sprite: 'assets/powers/luisSpecial.png',
         speed: 560, w: 84, h: 48, drawSize: 130, spin: 22, lifetime: 3000,
-        boomerang: { range: 430, accel: 1800 },   // distância da ida (px) e força da freada/volta
+        boomerang: { range: 430, accel: 1800 }, glow: '#7fd0ff', ghost: 5,   // distância da ida (px) e força da freada/volta
         spawn: { x: 52, y: -120 },
+      },
+      anim: {   // arremesso girando: gira o tronco para trás e solta com um estalo
+        charge: { rot: -0.12, tRot: -0.55, ox: -12, sy: 0.97, stance: 0.16, wobble: { tRot: [0.04, 9] } },
+        strike: { rot: 0.22, tRot: 0.62, ox: 26, sx: 1.05, stance: 0.26 },
+        fx: { charge: { kind: 'ring', color: '#7fd0ff' }, release: { kind: 'ring', color: '#bfe9ff', r: 120 } },
       },
       cost: 100,
     },

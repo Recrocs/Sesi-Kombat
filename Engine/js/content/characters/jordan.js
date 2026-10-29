@@ -22,6 +22,11 @@ SK.Characters.register({
       damagePct: 16, hitstun: 520, blockstun: 240, knockback: 520, pushbackBlock: 260,
       hitbox: { x: -10, y: -110, w: 115, h: 110 },
       ride: { sprite: 'assets/powers/jordanSpecial.png', faces: 'left', drawSize: 135, lift: 58, speed: 640 },
+      anim: {   // acelera a scooter no lugar (trepidando) antes de sair
+        charge: { sy: 0.96, tRot: 0.12, ox: -4, wobble: { oy: [1.6, 26], ox: [1.5, 26] } },
+        strike: { tRot: 0.18, rot: 0.1, ox: 6, sy: 0.97 },
+        fx: { charge: { kind: 'dust', color: '#e6cfa0', n: 8 }, release: { kind: 'ring', color: '#ffffff', origin: 'feet', r: 100, shake: 1 } },
+      },
       cost: 100,
     },
   },

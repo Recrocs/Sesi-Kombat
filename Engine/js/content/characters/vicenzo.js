@@ -23,7 +23,12 @@ SK.Characters.register({
       status: { type: 'sleep', ms: 3000, icon: 'assets/powers/zzz.png', closedEyes: true, fx: '#9be37a' },
       projectile: {
         sprite: 'assets/powers/vicenzoSpecial.png', speed: 520, w: 46, h: 78, drawSize: 100, spin: 14,
-        gravity: 380, vy0: -190, lifetime: 2000, spawn: { x: 55, y: -135 },
+        gravity: 380, vy0: -190, glow: '#9be37a', ghost: 3, landFx: { kind: 'gas', color: '#9be37a' }, lifetime: 2000, spawn: { x: 55, y: -135 },
+      },
+      anim: {   // agacha e joga a lata por baixo, de leve; névoa verde nas mãos
+        charge: { sy: 0.9, tSY: 0.96, tRot: 0.2, rot: 0.04, stance: 0.22 },
+        strike: { sy: 1.03, tRot: 0.34, rot: 0.12, ox: 16 },
+        fx: { charge: { kind: 'gas', color: '#9be37a', n: 8 }, release: { kind: 'ring', color: '#b9f09a', r: 100 } },
       },
       cost: 100,
     },

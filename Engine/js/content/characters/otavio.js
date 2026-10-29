@@ -37,8 +37,13 @@ SK.Characters.register({
       damagePct: 4, hitstun: 200, blockstun: 120, knockback: 70, pushbackBlock: 50,
       projectile: {
         sprite: 'assets/powers/otavioSpecial.png', heading: true,
-        w: 52, h: 52, drawSize: 74, speed: 0, gravity: 1700, vy0: 260, shadow: true, lifetime: 2400,
+        w: 52, h: 52, drawSize: 74, glow: '#ff6b8f', landFx: { kind: 'splat', color: '#d3173f' }, speed: 0, gravity: 1700, vy0: 260, shadow: true, lifetime: 2400,
         volley: { pattern: 'rain', count: 9, spread: 240, interval: 120, fromY: -50 },
+      },
+      anim: {   // braços para o alto chamando a chuva: gotas vermelhas em volta
+        charge: { tRot: -0.3, tSY: 1.08, oy: -8, sy: 1.03, rot: -0.08, wobble: { ox: [2, 5] } },
+        strike: { tRot: -0.1, oy: -2, sy: 0.97 },
+        fx: { charge: { kind: 'sparks', shape: 'drop', color: '#d3173f', n: 14 }, release: { kind: 'ring', color: '#ff7aa0', origin: 'feet', r: 120 } },
       },
       cost: 100,
     },

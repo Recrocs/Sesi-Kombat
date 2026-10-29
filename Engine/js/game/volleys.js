@@ -13,7 +13,7 @@
     fan(owner, target, v, match, cfg) {
       return v.items.map((it) => ({
         delay: it.delay || 0,
-        ov: { sprite: it.sprite, y: owner.y + it.y, dir: owner.facing, speed: it.speed || cfg.speed, spin: it.spin != null ? it.spin : cfg.spin },
+        ov: { sprite: it.sprite, glow: it.glow, y: owner.y + it.y, dir: owner.facing, speed: it.speed || cfg.speed, spin: it.spin != null ? it.spin : cfg.spin },
       }));
     },
 
